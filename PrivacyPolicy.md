@@ -22,4 +22,8 @@ The personal data is stored only in a database in cloud and not used outside the
 ## Usage of personal data.
 The personal data is only used to identify users that try to login to the app. 
 
+## Persona data deletion instructions:
+If a user wishes to remove personal data from the SWAPLING APP database,
+the user can click the respective "REMOVE MY ACCOUNT" when logged in.
+
 
