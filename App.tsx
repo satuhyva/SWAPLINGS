@@ -1,23 +1,34 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react'
+import MainApp from './src/components/main-app/MainApp'
+import AppContextWithState from './src/app-state/AppContextWithState'
+import { Provider as PaperProvider } from 'react-native-paper'
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
+// Next line is needed for gestures to function properly, even though it is not needed here!
+import 'react-native-gesture-handler'
 
-const App = () =>  {
+
+
+const App = () => {
+  console.log('HUHUU FROM SWAPLINGS')
+
+  // TODO: .env REACT_APP_...
+  const client = new ApolloClient({
+      uri: 'http://localhost:4000/graphql',
+      cache: new InMemoryCache()
+  })
+
+
   return (
-    <View style={styles.container}>
-      <Text>SWAPLINGS!!!</Text>
-      <StatusBar style="auto" />
-    </View>
+      <ApolloProvider client={client}>
+          <PaperProvider>
+              <AppContextWithState>
+                  <MainApp/>
+              </AppContextWithState>
+          </PaperProvider>
+      </ApolloProvider>
+      
+      
   )
 }
 
 export default App
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
