@@ -1,5 +1,6 @@
 export type LoggedInUserType = {
-    username: string | undefined
-    facebookName: string | undefined, 
+    id: string
+    loginType: 'traditional' | 'facebook',
+    name: string,
     jwtToken: string 
 }

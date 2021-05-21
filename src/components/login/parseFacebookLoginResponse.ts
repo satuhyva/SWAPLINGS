@@ -5,10 +5,13 @@ import { FacebookLoginServerResponseType } from '../../types/signup-login/Facebo
 
 export const parseFacebookLoginResponse = (response: unknown): LoggedInUserType | string => {
     const loginData = response as FacebookLoginServerResponseType
+    if (typeof loginData.data.facebookLogin.success !== 'boolean') throw new Error('Response success type must be boolean.')
     if (!loginData.data.facebookLogin.success) return loginData.data.facebookLogin.message
     return {
-        facebookName: parseText(loginData.data.facebookLogin.facebookName, 'Facebook name'),
-        jwtToken: parseText(loginData.data.facebookLogin.jwtToken, 'Token')
+        id: parseText(loginData.data.facebookLogin.id, 'User id'),
+        loginType: 'facebook',
+        name: parseText(loginData.data.facebookLogin.facebookName, 'Facebook name (for field name)'),
+        jwtToken: parseText(loginData.data.facebookLogin.jwtToken, 'Token'),
     }
 }
 

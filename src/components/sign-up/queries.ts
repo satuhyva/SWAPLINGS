@@ -6,6 +6,7 @@ mutation signUpPerson($signUpInput: SignUpInput!) {
         code
         success
         message
+        id
         username
         facebookName
         jwtToken

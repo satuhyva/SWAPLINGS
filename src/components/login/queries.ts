@@ -7,18 +7,21 @@ export const LOGIN_PERSON = gql`
             code
             success
             message
+            id
             username
             facebookName
             jwtToken
         }
     }
 `
+
 export const LOGIN_PERSON_FACEBOOK = gql`
     mutation facebookLogin($facebookLoginInput: FacebookLoginInput!) {
         facebookLogin(facebookLoginInput: $facebookLoginInput) {
             code
             success
             message
+            id
             username
             facebookName
             jwtToken

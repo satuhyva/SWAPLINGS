@@ -7,7 +7,7 @@ import { NotificationPropsType } from '../../../types/notification/NotificationP
 
 
 
-const Notification: React.FC<NotificationPropsType> = ({ title, content, themeType, clearNotification}) => {
+const Notification: React.FC<NotificationPropsType> = ({ title, content, themeType, clearNotification }) => {
 
 
     const [positionY] = useState(new Animated.Value(-NOTIFICATION_VIEW_HEIGHT - SPACING))
@@ -18,9 +18,9 @@ const Notification: React.FC<NotificationPropsType> = ({ title, content, themeTy
                 toValue: 0,
                 useNativeDriver: false
             }),
-            Animated.delay(themeType === 'error' ? 5000 : 3000),
+            Animated.delay(5000),
             Animated.timing(positionY, {
-                duration: 1000,
+                duration: 500,
                 toValue: -NOTIFICATION_VIEW_HEIGHT - SPACING,
                 easing: Easing.ease,
                 useNativeDriver: false

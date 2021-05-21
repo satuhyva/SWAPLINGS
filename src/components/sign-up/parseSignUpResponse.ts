@@ -5,10 +5,13 @@ import { SignUpServerResponseType } from '../../types/signup-login/SignUpServerR
 
 export const parseSignUpResponse = (response: unknown): LoggedInUserType | string => {
     const signUpData = response as SignUpServerResponseType
+    if (typeof signUpData.data.signUpPerson.success !== 'boolean') throw new Error('Response success type must be boolean.')
     if (!signUpData.data.signUpPerson.success) return signUpData.data.signUpPerson.message
     return {
-        username: parseText(signUpData.data.signUpPerson.username, 'Username'),
-        jwtToken: parseText(signUpData.data.signUpPerson.jwtToken, 'Token')
+        id: parseText(signUpData.data.signUpPerson.id, 'User id'),
+        loginType: 'traditional',
+        name: parseText(signUpData.data.signUpPerson.username, 'Username (for name field)'),
+        jwtToken: parseText(signUpData.data.signUpPerson.jwtToken, 'Token'),
     }
 }
 

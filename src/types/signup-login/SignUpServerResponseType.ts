@@ -4,9 +4,10 @@ export type SignUpServerResponseType = {
             code: string,
             success: boolean,
             message: string,
-            username: string
+            id: string | null,
+            username: string | null,
             facebookName: null, 
-            jwtToken: string 
+            jwtToken: string | null,
         }
     }
 }

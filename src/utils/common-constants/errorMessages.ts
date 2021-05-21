@@ -20,3 +20,15 @@ export const ERROR_FACEBOOK_TITLE = 'ERROR IN FACEBOOK LOGIN'
 export const ERROR_FACEBOOK_CONTENT = 'Something went wrong. Could not login with Facebook.'
 
 
+// REMOVE ACCOUNT:
+const SUCCESS_REMOVE_ACCOUNT_TITLE = 'SUCCESS IN REMOVE ACCOUNT'
+const SUCCESS_REMOVE_ACCOUNT_CONTENT = 'Your account has been successfully removed.'
+const ERROR_REMOVE_ACCOUNT_TITLE = 'ERROR IN REMOVING ACCOUNT'
+const ERROR_REMOVE_ACCOUNT_CONTENT = 'Something went wrong. Your account cound not be removed.'
+export const REMOVE_ACCOUNT_NOTIFICATION = {
+    errorTitle: ERROR_REMOVE_ACCOUNT_TITLE,
+    errorContent: ERROR_REMOVE_ACCOUNT_CONTENT,
+    successTitle: SUCCESS_REMOVE_ACCOUNT_TITLE,
+    successContent: SUCCESS_REMOVE_ACCOUNT_CONTENT
+}
+

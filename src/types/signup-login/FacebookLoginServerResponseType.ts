@@ -4,9 +4,10 @@ export type FacebookLoginServerResponseType = {
             code: string,
             success: boolean,
             message: string,
+            id: string | null,
             username: null
-            facebookName: string, 
-            jwtToken: string 
+            facebookName: string | null, 
+            jwtToken: string | null 
         }
     }
 }

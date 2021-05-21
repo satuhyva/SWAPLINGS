@@ -16,7 +16,9 @@ export const getTabBarIcon = (route: RouteProp<Record<string, object | undefined
                 return <MaterialIcons  name='view-carousel' size={size} color={color}/>                            
             case RoutesEnum.ADD:
                 return <MaterialIcons  name='library-add' size={size} color={color}/>
-            default:
+            case RoutesEnum.SETTINGS:
+                return <Ionicons  name='settings-sharp' size={size} color={color}/>
+                default:
                 return assertNever(route)
         }
     }

@@ -3,6 +3,7 @@ import { View, Text } from 'react-native'
 
 
 const Add = () => {
+    console.log('add')
     return (
         <View>
             <Text>Add</Text>
