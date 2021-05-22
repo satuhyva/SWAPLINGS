@@ -2,5 +2,6 @@ export enum RoutesEnum {
     'HOME' = 'Home',
     'BROWSE' = 'Browse',
     'ADD' = 'Add',
-    'SETTINGS' = 'Settings'
+    'SETTINGS' = 'Settings',
+    'IMAGING' = 'Imaging'
 }

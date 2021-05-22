@@ -9,7 +9,7 @@ module.exports = function(api) {
           moduleName: '@env',
           path: '.env',
           blacklist: null,
-          whitelist: ['FACEBOOK_LOGIN_APP_ID'],
+          whitelist: ['FACEBOOK_LOGIN_APP_ID', 'LOCALHOST_REST', 'LOCALHOST_GRAPHQL'],
           safe: true,
           allowUndefined: false,
         },
