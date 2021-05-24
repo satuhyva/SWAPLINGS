@@ -16,6 +16,9 @@ const App = () => {
     // const [isTakingPhoto, setIsTakingPhoto] = useState(true)
 
     return (
+        // <View style={{ backgroundColor: 'orange', width: 150, height: 150}}>
+
+        // </View>
         // <View>
         //     <TakePhoto
         //             cancel={() => setIsTakingPhoto(false)}

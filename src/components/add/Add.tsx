@@ -1,33 +1,17 @@
 import React, { useState } from 'react'
-import { View } from 'react-native'
-import TakePhoto from '../camera/TakePhoto'
-import { UploadedImageType } from '../../types/item/UploadedImageType'
-import { IconButton } from 'react-native-paper'
+import { View, Text } from 'react-native'
+
+import { styles } from './styles'
+import ItemImage from './ItemImage'
 
 
-// @ts-ignore
-const Add = ({ navigation }) => {
+const Add = () => {
 
-    const [uploadedImage, setUploadedImage] = useState<UploadedImageType | undefined>(undefined)
-    const [isTakingPhoto, setIsTakingPhoto] = useState(true)
-
-    console.log('uploadedImage', uploadedImage)
 
     return (
         <View>
-            {/* {isTakingPhoto &&
-                <TakePhoto
-                    cancel={() => setIsTakingPhoto(false)}
-                    setUploadedImage={setUploadedImage}
-                />            
-            } */}
-        <IconButton
-            icon='camera-switch'
-            color='#FFFFFF'
-            size={40}
-            style={{ backgroundColor: '#000000' }}
-            onPress={() => navigation.navigate('Imaging')}
-        /> 
+            <Text style={styles.pageTitle}>ADD NEW ITEM</Text>
+            <ItemImage/>
         </View>
     )
 }

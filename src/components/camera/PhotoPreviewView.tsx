@@ -19,9 +19,9 @@ type PhotoPreviewViewProps = {
 const PhotoPreviewView: React.FC<PhotoPreviewViewProps> = ({ photo, declinePhoto, cancelTakingPhoto, savePhoto }) => {
 
     return (
-        <View>
+        <View style={styles.previewImageViewContainer}>
             <Image
-                style={styles.cameraAndPreviewView}
+                style={styles.previewImageView}
                 source={{ uri: photo.uri }}
             /> 
             <View style={styles.previewButtonsView}>

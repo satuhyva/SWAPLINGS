@@ -3,6 +3,8 @@ import { ActionTypesEnum } from '../types/app-state/ActionTypesEnum'
 import { AppStateType } from '../types/app-state/AppStateType'
 import { assertNever } from '../utils/common-functions/assertNever'
 
+
+
 export const reducer = (_state: AppStateType, action: ActionType): AppStateType => {
 
     switch (action.type) {

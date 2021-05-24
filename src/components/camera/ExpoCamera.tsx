@@ -49,8 +49,8 @@ const ExpoCamera: React.FC<ExpoCameraPropsType> = ({ setPhoto }) => {
   
     return (
             <Camera style={{ flex: 1 }} type={type} ref={ref => setCameraRef(ref)}>
-                <View style={styles.cameraAndPreviewView}>
-                    <View style={styles.buttonsView}>
+                <View style={styles.cameraView}>
+                    <View style={styles.cameraButtonsView}>
                         <ExpoCameraButton
                             action={flipView}
                             type='flip'
