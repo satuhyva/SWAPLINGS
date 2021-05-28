@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native'
-
+import { theme } from '../../theme/theme'
 
 
 
@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
         borderRadius: 6
     },
     iconView: {
-        backgroundColor: '#000000',
+        backgroundColor: theme.colors.primary.dark,
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center' 
@@ -22,29 +22,53 @@ export const styles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center'
     },
-
-    // cameraAndPreviewView: {
-    //     backgroundColor: 'transparent',
-    //     width: Dimensions.get('window').width,
-    //     height: Dimensions.get('window').height,
-    //     display: 'flex',
-    //     flexDirection: 'column',
-    //     justifyContent: 'flex-end',
-    //     alignItems: 'center'
-    // },
-    // buttonsView: {
-    //     flexDirection: 'row',
-    //     justifyContent: 'center',
-    //     alignItems: 'center'
-    // },
-    // previewButtonsView: {
-    //     flexDirection: 'row',
-    //     justifyContent: 'center',
-    //     alignItems: 'center',
-    //     bottom: 20,
-    //     position: 'absolute',
-    //     left: '50%',
-    //     right: '50%',
-    // }
+    infoText: {
+        textAlign: 'center'
+    },
+    subtitle: {
+        fontWeight: 'bold',
+        fontSize: 18,
+        marginBottom: -5,
+        marginTop: 10
+    },
+    formContainer: {
+        marginLeft: 20
+    },
+    priceGroupInfo: {
+        marginTop: 8,
+        marginBottom: 5
+    },
+    priceGroupInfoWithError: {
+        marginTop: 8,
+        marginBottom: 5,
+        color: theme.colors.error,
+    },
+    priceGroupAndImageContainer: {
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start' ,
+    },
+    priceGroupToggleButtonsContainer: {
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start'  
+    },
+    toggleButton: {
+        marginBottom: 5, 
+        borderColor: theme.colors.primary.light, 
+        borderWidth: 1
+    },
+    toggleButtonOrImageContainer: {
+        marginRight: 30,
+    },
+    submitButtonContainer: {
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 20
+    },
+    itemImageButton: {
+        backgroundColor: theme.colors.primary.dark,
+    }
 
 })

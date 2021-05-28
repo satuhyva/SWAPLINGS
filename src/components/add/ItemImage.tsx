@@ -9,16 +9,26 @@ import { styles } from './styles'
 
 
 
-const ItemImage = ({ }) => {
+
+type ItemImagePropsType = {
+    disabled: boolean
+}
+
+const ItemImage: React.FC<ItemImagePropsType> = ({ disabled }) => {
 
     const navigation = useNavigation<CompositeNavigationPropType>()
     const itemImage = useReactiveVar(itemUnderConstructionImageVar)
 
+    const navigateToImaging = () => {
+        if (!disabled) {
+            navigation.navigate('Imaging')
+        }
+    }
 
     return (
         <React.Fragment>
             {itemImage && itemImage.clientUrl ?
-                <TouchableOpacity onPress={() => navigation.navigate('Imaging')}>
+                <TouchableOpacity onPress={navigateToImaging}>
                     <Image
                         style={styles.imageView}
                         source={itemImage.clientUrl as ImageSourcePropType}
@@ -30,8 +40,8 @@ const ItemImage = ({ }) => {
                         icon='image-edit'
                         color='#FFFFFF'
                         size={100}
-                        style={{ backgroundColor: '#000000' }}
-                        onPress={() => navigation.navigate('Imaging')}
+                        style={styles.itemImageButton}
+                        onPress={navigateToImaging}
                     />  
                 </View>
             }

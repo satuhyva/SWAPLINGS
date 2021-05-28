@@ -32,3 +32,16 @@ export const REMOVE_ACCOUNT_NOTIFICATION = {
     successContent: SUCCESS_REMOVE_ACCOUNT_CONTENT
 }
 
+
+
+// ADD ITEM:
+const SUCCESS_ADD_ITEM_TITLE = 'SUCCESS IN ADD NEW ITEM'
+const SUCCESS_ADD_ITEM_CONTENT = 'The new item has been successfully added.'
+const ERROR_ADD_ITEM_TITLE = 'ERROR IN ADDING NEW ITEM'
+const ERROR_ADD_ITEM_CONTENT = 'Something went wrong. Item could not be added.'
+export const ADD_ITEM_NOTIFICATION = {
+    errorTitle: ERROR_ADD_ITEM_TITLE,
+    errorContent: ERROR_ADD_ITEM_CONTENT,
+    successTitle: SUCCESS_ADD_ITEM_TITLE,
+    successContent: SUCCESS_ADD_ITEM_CONTENT
+}

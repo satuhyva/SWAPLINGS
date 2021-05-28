@@ -11,6 +11,10 @@ import { createStackNavigator } from '@react-navigation/stack'
 import ScreensWithVisibleTabBar from './ScreensWithVisibleTabBar'
 import { RootStackType } from '../../types/routes/RootStackType'
 import { itemUnderConstructionImageVar } from '../../apollo/cache'
+// import { View } from 'react-native'
+
+
+
 
 enableScreens()
 
@@ -66,6 +70,7 @@ const MainApp = () => {
     const Stack = createStackNavigator<RootStackType>()
 
     return (
+
         <ApolloProvider client={client}>
             <NavigationContainer>
             <Stack.Navigator

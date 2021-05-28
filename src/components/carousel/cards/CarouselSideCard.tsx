@@ -1,11 +1,11 @@
 import React from 'react'
 import { Animated } from 'react-native'
 import CardContent from './CardContent'
-
+import { ItemForCardType } from '../../../types/item/ItemForCardType'
 
 
 type CarouselSideCardPropsType = {
-    cardData: { title: string, imageUrl: string,}
+    cardData: ItemForCardType,
     sideCardOrigo: Animated.ValueXY | undefined,
 }
 

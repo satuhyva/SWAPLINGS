@@ -3,10 +3,11 @@ import { Animated } from 'react-native'
 import { CardOrigosType } from '../Carousel'
 import { getPanResponder } from './getPanResponder'
 import CardContent from './CardContent'
+import { ItemForCardType } from '../../../types/item/ItemForCardType'
 
 
 type CarouselCardPropsType = {
-    cardData: { title: string, imageUrl: string,}
+    cardData: ItemForCardType,
     cardOrigos: CardOrigosType,
     updateCards: (direction: 'left' | 'right') => void,
     onlySwipeOutToLeftAllowed: boolean,
@@ -21,8 +22,8 @@ const CarouselMiddleCard: React.FC<CarouselCardPropsType> = ({ cardData, cardOri
 
     return (
             <Animated.View 
-            style={{ transform: [{ translateX: cardOrigos.middle.x }]}}
-                { ...panResponder.panHandlers }
+                style={{ transform: [{ translateX: cardOrigos.middle.x }]}}
+                    { ...panResponder.panHandlers }
             >
                 <CardContent cardData={cardData} />
             </Animated.View>
