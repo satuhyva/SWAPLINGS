@@ -1,5 +1,5 @@
 import AppContext from '../../app-state/AppContext'
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import axios from 'axios'
 import { LOCALHOST_REST } from '@env'
 import { CameraCapturedPicture } from 'expo-camera'
@@ -24,9 +24,7 @@ export const useUploadPhoto = (): UseSavePhotoType => {
     const loggedInUser = state.loggedInUser
 
     const uploadPhoto = async (photo: CameraCapturedPicture): Promise<UploadedImageType | undefined> => {
-        console.log('upp', loggedInUser)
         if (loggedInUser && loggedInUser.jwtToken) {
-            console.log('dfdfdfdf')
             const formData = new FormData()
             if (photo && photo.uri) {
                 const photoBlob = dataURLToBlob(photo.uri)

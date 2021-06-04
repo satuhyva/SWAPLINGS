@@ -20,7 +20,11 @@ export const getTabBarIcon = (route: RouteProp<Record<string, object | undefined
                 return <Ionicons  name='settings-sharp' size={size} color={color}/>
             case RoutesEnum.IMAGING:
                 return <Ionicons  name='settings-sharp' size={size} color={color}/>
+            case RoutesEnum.MATCH:
+                return <Ionicons  name='chatbox-ellipses' size={size} color={color}/>
             default:
                 return assertNever(route)
         }
     }
+
+    

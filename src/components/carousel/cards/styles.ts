@@ -43,5 +43,48 @@ export const styles = StyleSheet.create({
         textAlign: 'center',
         fontWeight: 'bold',
         marginTop: 5
-    }
+    },
+    matchDataButtonsContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    matchButton: {
+        margin: 3
+    },
+    imageAndMatchDataIconsContainer: {
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+    },
+    matchDataNumber: {
+        color: theme.colors.primary.contrast,
+        fontSize: 18,
+        fontWeight: 'bold',
+    },
+    matchDataView: {
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'center', 
+        marginLeft: 10,    
+        marginRight: 10
+    },
+    matchIconButtonContainer: {
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    iconBackgroundCircle: {
+        backgroundColor: theme.colors.primary.light,
+        width: 70,
+        height: 70,
+        borderRadius: 70,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    noItemsTextContainer: {
+        marginTop: 20
+    },
+
 })

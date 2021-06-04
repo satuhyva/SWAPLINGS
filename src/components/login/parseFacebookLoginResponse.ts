@@ -1,18 +1,26 @@
-import { LoggedInUserType } from '../../types/signup-login/LoggedInUserType'
-import { FacebookLoginServerResponseType } from '../../types/signup-login/FacebookLoginServerResponseType'
+import { FacebookLoginResponseType } from './queries'
+import { ParsedLoginSignUpDataType } from '../../types/signup-login/ParsedLoginSignUpDataType'
 
 
 
-export const parseFacebookLoginResponse = (response: unknown): LoggedInUserType | string => {
-    const loginData = response as FacebookLoginServerResponseType
-    if (typeof loginData.data.facebookLogin.success !== 'boolean') throw new Error('Response success type must be boolean.')
-    if (!loginData.data.facebookLogin.success) return loginData.data.facebookLogin.message
+export const parseFacebookLoginResponse = (data: FacebookLoginResponseType | null | undefined): ParsedLoginSignUpDataType => {
+    
+    if (!data) throw new Error('No data was returned from the Facebook login query.')
+
+    if (typeof data.facebookLogin.success !== 'boolean') throw new Error('Response success type must be boolean.')
+
+    if (!data.facebookLogin.success) return { errorMessage: data.facebookLogin.message, loggedInUserData: undefined } 
+
     return {
-        id: parseText(loginData.data.facebookLogin.id, 'User id'),
-        loginType: 'facebook',
-        name: parseText(loginData.data.facebookLogin.facebookName, 'Facebook name (for field name)'),
-        jwtToken: parseText(loginData.data.facebookLogin.jwtToken, 'Token'),
+        errorMessage: undefined,
+        loggedInUserData: {
+            id: parseText(data.facebookLogin.id, 'User id'),
+            loginType: 'facebook',
+            name: parseText(data.facebookLogin.facebookName, 'Facebook name (for field name)'),
+            jwtToken: parseText(data.facebookLogin.jwtToken, 'Token'),
+        }
     }
+
 }
 
 

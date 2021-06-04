@@ -2,7 +2,7 @@
 
 
 export type ItemForCardType = {
-    brand: string,
+    brand: string | null,
     description: string,
     id: string,
     imagePublicId: string,

@@ -3,5 +3,6 @@ export enum RoutesEnum {
     'BROWSE' = 'Browse',
     'ADD' = 'Add',
     'SETTINGS' = 'Settings',
-    'IMAGING' = 'Imaging'
+    'IMAGING' = 'Imaging',
+    'MATCH' = 'Match'
 }

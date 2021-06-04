@@ -1,42 +1,51 @@
 import { useContext, useState } from 'react'
-import { useMutation } from '@apollo/client'
-import { LoginType } from '../../types/signup-login/LoginType'
 import { parseLoginResponse } from './parseLoginResponse'
 import { parseFacebookLoginResponse } from '../login/parseFacebookLoginResponse'
 import AppContext from '../../app-state/AppContext'
 import { NotificationPropsType } from '../../types/notification/NotificationPropsType'
 import { ActionTypesEnum } from '../../types/app-state/ActionTypesEnum'
 import { ERROR_LOGIN_TITLE, ERROR_LOGIN_CONTENT, ERROR_FACEBOOK_TITLE, ERROR_FACEBOOK_CONTENT } from '../../utils/common-constants/errorMessages'
-import { LOGIN_PERSON, LOGIN_PERSON_FACEBOOK } from './queries'
+import { LOGIN_PERSON, LOGIN_PERSON_FACEBOOK, LoginPersonResponseType, LoginInputVariablesType, FacebookLoginInputVariablesType, FacebookLoginResponseType } from './queries'
+import axios from 'axios'
+import { LOCALHOST_GRAPHQL } from '@env'
+
 
 
 type UseHandleLoginType = {
     submitting: boolean,
-    submitLogin: (values: LoginType) => Promise<void>,
+    submitLogin: (values: LoginInputVariablesType) => Promise<void>,
     submitFacebookLogin: (accessToken: string, userId: string) => Promise<void>,
     notification: NotificationPropsType | undefined,
     setNotification: (notification: NotificationPropsType | undefined) => void
 }
 
 
+const CONFIGURATIONS = {
+    headers: {
+        'Content-Type': 'application/json'
+    }
+}
+
 
 export const useHandleLogin = (): UseHandleLoginType => {
 
     const [submitting, setSubmitting] = useState(false)
-    const [loginPerson] = useMutation(LOGIN_PERSON)
-    const [loginPersonFacebook] = useMutation(LOGIN_PERSON_FACEBOOK)
     const [notification, setNotification] = useState<NotificationPropsType | undefined>(undefined)
     const { dispatch } = useContext(AppContext)
 
-    const submitLogin = async (values: LoginType): Promise<void> => {
+    
+    const submitLogin = async (values: LoginInputVariablesType): Promise<void> => {
         setSubmitting(true)
         try {
-            const response = await loginPerson({ variables: { loginInput: { username: values.username, password: values.password } }})
-            const parsedLoginData = parseLoginResponse(response)
-            if (typeof parsedLoginData === 'string' ) throw new Error(parsedLoginData)
-            dispatch({ type: ActionTypesEnum.SET_LOGGED_IN_USER, data: parsedLoginData })
+            const response = await axios.post(LOCALHOST_GRAPHQL, {
+                        query: LOGIN_PERSON,
+                        variables: { loginInput: { username: values.username, password: values.password } }
+                }, CONFIGURATIONS)
+            const responseData = response.data as unknown as { data: LoginPersonResponseType }
+            const parsedLoginData = parseLoginResponse(responseData.data)
+            if (parsedLoginData.errorMessage) throw new Error(parsedLoginData.errorMessage)
+            dispatch({ type: ActionTypesEnum.SET_LOGGED_IN_USER, data: parsedLoginData.loggedInUserData })
         } catch (error) {
-            console.log(error)
             setSubmitting(false)
             setNotification({
                 title: ERROR_LOGIN_TITLE,
@@ -47,16 +56,20 @@ export const useHandleLogin = (): UseHandleLoginType => {
         }
     }
 
+
     const submitFacebookLogin = async (accessToken: string, userId: string): Promise<void> => {
         setSubmitting(true)
-        const personValues = { userId: userId, facebookAccessToken: accessToken }
+        const personValues: FacebookLoginInputVariablesType = { userId: userId, facebookAccessToken: accessToken }
         try {
-            const response = await loginPersonFacebook({ variables: { facebookLoginInput: personValues }})
-            const parsedLoginData = parseFacebookLoginResponse(response)
-            if (typeof parsedLoginData === 'string' ) throw new Error(parsedLoginData)
-            dispatch({ type: ActionTypesEnum.SET_LOGGED_IN_USER, data: parsedLoginData })
+            const response = await axios.post(LOCALHOST_GRAPHQL, {
+                        query: LOGIN_PERSON_FACEBOOK,
+                        variables: { facebookLoginInput: personValues }
+                }, CONFIGURATIONS)
+            const responseData = response.data as unknown as { data: FacebookLoginResponseType }
+            const parsedLoginData = parseFacebookLoginResponse(responseData.data)
+            if (parsedLoginData.errorMessage) throw new Error(parsedLoginData.errorMessage)
+            dispatch({ type: ActionTypesEnum.SET_LOGGED_IN_USER, data: parsedLoginData.loggedInUserData })
         } catch (error) {
-            console.log(error)
             setSubmitting(false)
             setNotification({
                 title: ERROR_FACEBOOK_TITLE,

@@ -5,6 +5,7 @@ import Home from '../home/Home'
 import Browse from '../browse/Browse'
 import Settings from '../settings/Settings'
 import Add from '../add/Add'
+import Match from '../match/Match'
 import { theme } from '../../theme/theme'
 import { RoutesEnum } from '../../types/routes/RoutesEnum'
 import { getTabBarIcon } from './getTabBarIcon'
@@ -36,6 +37,7 @@ const ScreensWithVisibleTabBar = () => {
             <Tab.Screen name={RoutesEnum.HOME} component={Home} />
             <Tab.Screen name={RoutesEnum.ADD} component={Add} />
             <Tab.Screen name={RoutesEnum.BROWSE} component={Browse} />
+            <Tab.Screen name={RoutesEnum.MATCH} component={Match} />
             <Tab.Screen name={RoutesEnum.SETTINGS} component={Settings} />
     </Tab.Navigator>
     )

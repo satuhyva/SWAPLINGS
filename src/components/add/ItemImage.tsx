@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Image, ImageSourcePropType, TouchableOpacity } from 'react-native'
 import { IconButton } from 'react-native-paper'
 import {  useNavigation } from '@react-navigation/native'
-import { CompositeNavigationPropType } from '../../types/routes/CompositeNavigationPropType'
+import { CompositeNavigationPropAddType } from '../../types/routes/CompositeNavigationPropTypes'
 import { itemUnderConstructionImageVar } from '../../apollo/cache'
 import { useReactiveVar } from '@apollo/client'
 import { styles } from './styles'
@@ -16,7 +16,7 @@ type ItemImagePropsType = {
 
 const ItemImage: React.FC<ItemImagePropsType> = ({ disabled }) => {
 
-    const navigation = useNavigation<CompositeNavigationPropType>()
+    const navigation = useNavigation<CompositeNavigationPropAddType>()
     const itemImage = useReactiveVar(itemUnderConstructionImageVar)
 
     const navigateToImaging = () => {

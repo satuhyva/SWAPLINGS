@@ -3,7 +3,7 @@ import { Dimensions } from 'react-native'
 export const SCREEN_WIDTH = Dimensions.get('window').width
 export const SCREEN_HEIGHT = Dimensions.get('window').height
 export const SWIPE_OUT_DURATION = 250
-export const SWIPE_LEFT_TRESHOLD = SCREEN_WIDTH * 0.5
+export const SWIPE_LEFT_TRESHOLD = SCREEN_WIDTH * 0.3
 export const CARD_WIDTH = SCREEN_WIDTH * 0.8
 export const CARD_HEIGHT = SCREEN_HEIGHT * 0.65
 export const SPACING = 10

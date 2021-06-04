@@ -1,17 +1,23 @@
-import { LoggedInUserType } from '../../types/signup-login/LoggedInUserType'
-import { SignUpServerResponseType } from '../../types/signup-login/SignUpServerResponseType'
+import { SignUpPersonResponseType } from './queries'
+import { ParsedLoginSignUpDataType } from '../../types/signup-login/ParsedLoginSignUpDataType'
 
 
 
-export const parseSignUpResponse = (response: unknown): LoggedInUserType | string => {
-    const signUpData = response as SignUpServerResponseType
-    if (typeof signUpData.data.signUpPerson.success !== 'boolean') throw new Error('Response success type must be boolean.')
-    if (!signUpData.data.signUpPerson.success) return signUpData.data.signUpPerson.message
+export const parseSignUpResponse = (data: SignUpPersonResponseType | undefined | null ): ParsedLoginSignUpDataType => {
+    
+    if (!data) throw new Error('No data was returned from the sign up query.')
+    if (typeof data.signUpPerson.success !== 'boolean') throw new Error('Response success type must be boolean.')
+
+    if (!data.signUpPerson.success) return { errorMessage: data.signUpPerson.message, loggedInUserData: undefined } //data.signUpPerson.message
+
     return {
-        id: parseText(signUpData.data.signUpPerson.id, 'User id'),
-        loginType: 'traditional',
-        name: parseText(signUpData.data.signUpPerson.username, 'Username (for name field)'),
-        jwtToken: parseText(signUpData.data.signUpPerson.jwtToken, 'Token'),
+        errorMessage: undefined,
+        loggedInUserData: {
+            id: parseText(data.signUpPerson.id, 'User id'),
+            loginType: 'traditional',
+            name: parseText(data.signUpPerson.username, 'Username (for name field)'),
+            jwtToken: parseText(data.signUpPerson.jwtToken, 'Token'),
+        }
     }
 }
 

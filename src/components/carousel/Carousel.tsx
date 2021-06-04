@@ -6,21 +6,8 @@ import { MIDDLE_CARD_ORIGO, LEFT_CARD_ORIGO, RIGHT_CARD_ORIGO, LEFTMOST_CARD_ORI
  } from './carouselConstants'
 import CarouselSideCard from './cards/CarouselSideCard'
 import { ItemForCardType } from '../../types/item/ItemForCardType'
+import { MyItemForCarouselType } from '../../types/item/MyItemType'
 
-
-
-
-// const CARDS = [
-//     { title: 'CARD 1', imageUrl: 'https://res.cloudinary.com/swaplings/image/upload/v1619778415/items/piilfwliodjdbhqlrkyc.gif' },
-//     { title: 'CARD 3', imageUrl: 'https://res.cloudinary.com/swaplings/image/upload/v1619792320/sample.jpg' },
-//     { title: 'CARD 4', imageUrl: 'https://homepages.cae.wisc.edu/~ece533/images/fruits.png' },
-//     { title: 'CARD 5', imageUrl: 'https://homepages.cae.wisc.edu/~ece533/images/monarch.png' },
-//     { title: 'CARD 6', imageUrl: 'https://homepages.cae.wisc.edu/~ece533/images/zelda.png' },
-//     { title: 'CARD 7', imageUrl: 'https://homepages.cae.wisc.edu/~ece533/images/watch.png' },
-//     { title: 'CARD 8', imageUrl: 'https://homepages.cae.wisc.edu/~ece533/images/peppers.png' },
-//     { title: 'CARD 9', imageUrl: 'https://homepages.cae.wisc.edu/~ece533/images/goldhill.png' },
-//     { title: 'CARD 10', imageUrl: 'https://homepages.cae.wisc.edu/~ece533/images/cat.png' },
-// ]
 
 
 export type CardOrigosType = {
@@ -32,11 +19,12 @@ export type CardOrigosType = {
 }
 
 type CarouselPropsType = {
-    itemCards: ItemForCardType[]
+    itemCards: ItemForCardType[],
+    myItems: MyItemForCarouselType[]
 }
 
 
-const Carousel: React.FC<CarouselPropsType> = ({ itemCards }) => {
+const Carousel: React.FC<CarouselPropsType> = ({ itemCards, myItems }) => {
 
     const cardOrigos = {
         leftmost: useRef(new Animated.ValueXY({ ...LEFTMOST_CARD_ORIGO })).current,
@@ -73,12 +61,14 @@ const Carousel: React.FC<CarouselPropsType> = ({ itemCards }) => {
                 <CarouselSideCard
                     cardData={itemCards[middleCardIndex - 2]} 
                     sideCardOrigo={cardOrigos.leftmost}
+                    myItems={myItems}
                 />            
             }
             {middleCardIndex >= 1 &&
                 <CarouselSideCard
                     cardData={itemCards[middleCardIndex - 1]} 
                     sideCardOrigo={cardOrigos.left}
+                    myItems={myItems}
                 />            
             }
             {middleCardIndex >= 0 &&
@@ -88,18 +78,22 @@ const Carousel: React.FC<CarouselPropsType> = ({ itemCards }) => {
                     updateCards={updateCards}
                     onlySwipeOutToLeftAllowed={middleCardIndex === 0}
                     onlySwipeOutToRightAllowed={middleCardIndex === itemCards.length - 1}
+                    isAnOnlyCard={itemCards.length === 1}
+                    myItems={myItems}
                 />      
             }
             {middleCardIndex >= 0 && itemCards.length > middleCardIndex + 1 &&
                 <CarouselSideCard
                     cardData={itemCards[middleCardIndex + 1]} 
                     sideCardOrigo={cardOrigos.right}
+                    myItems={myItems}
                 />            
             }
             {middleCardIndex >= 0 && itemCards.length > middleCardIndex + 2 &&
                 <CarouselSideCard
                     cardData={itemCards[middleCardIndex + 2]} 
                     sideCardOrigo={cardOrigos.rightmost}
+                    myItems={myItems}
                 />            
             }
         </View>

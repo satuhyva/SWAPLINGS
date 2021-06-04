@@ -9,16 +9,19 @@ import { IconButton } from 'react-native-paper'
 import { Button } from 'react-native-paper'
 import WaitSpinner from '../common-components/wait-spinner/WaitSpinner'
 import { NotificationPropsType } from '../../types/notification/NotificationPropsType'
-import { SignUpFormikValuesType } from '../../types/signup-login/SignUpFormikValuesType'
 
 
-
+export type SignUpFormikValuesType = {
+    username: string, 
+    password: string, 
+    passwordConfirm: string,
+    email?: string
+}
 
 type SignUpFormPropsType = {
     submitSignUp: (values: SignUpFormikValuesType) => Promise<void>,
     submitting: boolean,
     notification: NotificationPropsType | undefined
-
 }
 
 

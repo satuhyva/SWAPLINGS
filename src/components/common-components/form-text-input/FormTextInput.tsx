@@ -2,7 +2,10 @@ import React from 'react'
 import { View, Text } from 'react-native'
 import { styles } from './styles'
 import { TextInput } from 'react-native-paper'
-import { theme } from '../../../theme/theme';
+import { theme } from '../../../theme/theme'
+import { labels, labels_RED_TITLE, placeHolders } from './formTextInputLabels'
+
+
 
 
 type FormTextInputPropsType = {
@@ -14,36 +17,19 @@ type FormTextInputPropsType = {
     error?: string,
 }
 
-const FormTextInput: React.FC<FormTextInputPropsType> = ({ target, value, handleValueChange, isEditable, isVisible, error }) => {
 
-    const placeHolders = {
-        username: 'Username',
-        password: 'Password',
-        passwordConfirm: 'Confirm password',
-        email: 'Email',
-        itemTitle: '',
-        itemDescription: '',
-        itemBrand: '',
-        searchTitle: 'e.g. table, sofa, chair',
-        searchDescription: 'e.g. living room, white, like new',
-        searchBrand: 'e.g. Interface, Pohjanmaan',
-    }
-    const labels = {
-        username: 'Username',
-        password: 'Password',
-        passwordConfirm: 'Confirm password',
-        email: 'Email (optional, for password reset purpose)',
-        itemTitle: 'Give a short title (e.g. bread maker, microwave oven)',
-        itemDescription: 'Describe the item shortly (e.g. color, condition)',
-        itemBrand: 'Brand and possible model (optional)',
-        searchTitle: '',
-        searchDescription: '',
-        searchBrand: ''
-    }
+
+const FormTextInput: React.FC<FormTextInputPropsType> = ({ target, value, handleValueChange, isEditable, isVisible, error }) => {
 
     return (
         <View style={styles.inputContainer}>
-            <Text style={error === 'RED_TITLE' ? { color: theme.colors.error } : null}>{labels[target]}</Text>
+            <Text style={error === 'RED_TITLE' ? { color: theme.colors.error } : null}>
+                {error === 'RED_TITLE' ?
+                    labels_RED_TITLE[target]
+                    :
+                    labels[target]
+                }
+                </Text>
             <TextInput
                 value={value}
                 onChangeText={handleValueChange}

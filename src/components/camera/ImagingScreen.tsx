@@ -6,14 +6,14 @@ import ExpoCamera from './ExpoCamera'
 import PhotoPreviewView from './PhotoPreviewView'
 import { useUploadPhoto } from './useUploadPhoto'
 import { useNavigation } from '@react-navigation/native'
-import { CompositeNavigationPropType } from '../../types/routes/CompositeNavigationPropType'
+import { CompositeNavigationPropAddType } from '../../types/routes/CompositeNavigationPropTypes'
 import { itemUnderConstructionImageVar } from '../../apollo/cache'
 
 
 
 const ImagingScreen = () => {
     
-    const navigation = useNavigation<CompositeNavigationPropType>()
+    const navigation = useNavigation<CompositeNavigationPropAddType>()
     const [image, setImage] = useState<CameraCapturedPicture | undefined>(undefined)
     const { uploadPhoto } = useUploadPhoto()
 

@@ -1,17 +1,23 @@
 import React, { useState } from 'react'
 import { View, Text } from 'react-native'
-import { useLazyQuery } from '@apollo/client'
+import { useLazyQuery, useApolloClient } from '@apollo/client'
 import { styles } from './styles'
 import BrowseSearchTerms from './BrowseSearchTerms'
 import { SearchTermsType } from '../../types/browse/SearchTermsType'
 import { Button } from 'react-native-paper'
 import { theme } from '../../theme/theme'
-import { GET_BROWSE_ITEMS } from './queries'
+import { BROWSE_ITEMS_BY_PAGE, MY_ITEMS_FOR_CAROUSEL } from './queries'
 import Notification from '../common-components/notification/Notification'
-import { NotificationPropsType } from 'src/types/notification/NotificationPropsType'
+import { NotificationPropsType } from '../../types/notification/NotificationPropsType'
 import WaitSpinner from '../common-components/wait-spinner/WaitSpinner'
 import Carousel from '../carousel/Carousel'
+import { BrowseItemsByPageResponseType } from '../../types/browse/BrowseItemsByPageType'
+import { ItemForCardType } from '../../types/item/ItemForCardType'
+import { MyItemForCarouselType } from '../../types/item/MyItemType'
 
+
+
+const NUMBER_OF_ITEMS_TO_FETCH_AT_A_GO = 2
 
 
 const Browse = () => {
@@ -19,9 +25,12 @@ const Browse = () => {
     const [searchTerms, setSearchTerms] = useState<SearchTermsType | undefined>(undefined)
     const [notification, setNotification] = useState<NotificationPropsType | undefined>(undefined)
     const [showSetSearchCriteria, setShowSetSearchCriteria] = useState(true)
-    const [getBrowseItems, { loading, error, data }] = useLazyQuery(GET_BROWSE_ITEMS)
+    const [browseItemsByPage, { loading, error, data, fetchMore }] = useLazyQuery(BROWSE_ITEMS_BY_PAGE)
+    const client = useApolloClient()
+
 
     if (error) {
+        console.log(error)
         setNotification({
             title: 'ERROR',
             content: 'Something went wrong. Could not get items.',
@@ -30,13 +39,57 @@ const Browse = () => {
         })
     }
 
+    // RATIONALE (to be realized in the end): 
+    // We always fetch only the first couple of items to get started and then, when the user
+    // has kept swiping items with the carousel to the last item, only then more items are fetched.
+    // Items are  shown in order of descending createdAt.
+
     const searchCriteriaChanged = async (searchTerms: SearchTermsType) => {
+        // When search criteria change, browseItemsByPage field result needs to be cleared.
+        // This does not remove individual items from cache. New server query is performed.
+        client.cache.modify({
+            fields: {
+                browseItemsByPage() {
+                    return {}
+                }
+            }
+        })
         setShowSetSearchCriteria(false)
         setSearchTerms(searchTerms)
-        getBrowseItems({ variables: { browseItemsInput: searchTerms }})
+        browseItemsByPage({ variables: {
+            browseItemsByPageInput: {
+                first: NUMBER_OF_ITEMS_TO_FETCH_AT_A_GO,
+                browseItemsInput: searchTerms
+            }
+        }})
     }
 
-    console.log(data)
+    const getMoreItemsToBrowse = () => {
+        if (fetchMore && data) {
+            fetchMore({
+                variables: {
+                    browseItemsByPageInput: {
+                        first: NUMBER_OF_ITEMS_TO_FETCH_AT_A_GO,
+                        after: (data as BrowseItemsByPageResponseType).browseItemsByPage.pageInfo.endCursor,
+                        browseItemsInput: searchTerms
+                    }
+                }
+            })
+        }
+    }
+
+    const browseData = data as BrowseItemsByPageResponseType
+    const browseItemsAsCarouselCards = browseData && browseData.browseItemsByPage && browseData.browseItemsByPage.edges ?
+        browseData.browseItemsByPage.edges.filter(edge => edge !== undefined).map(edge => edge.node as ItemForCardType)
+        : 
+        undefined
+
+
+    const myItemsForCarousel: { myItems: MyItemForCarouselType[] } | null = client.readQuery({
+        query: MY_ITEMS_FOR_CAROUSEL
+    })
+
+
 
     return (
         <View>
@@ -66,14 +119,61 @@ const Browse = () => {
                 }
             </View>
 
-            {loading ? 
+            {loading && 
                 <WaitSpinner/>
-                :
-                data && data.browseItems ?
-                    <Carousel itemCards={data.browseItems}/>
-                    :
-                    null
             }
+            {!showSetSearchCriteria && browseItemsAsCarouselCards ?
+                browseItemsAsCarouselCards.length === 0 ?
+                    <View style={styles.searchCriteriaContainer}>
+                            {(!searchTerms?.priceGroups && !searchTerms?.phrasesInTitle && !searchTerms?.phrasesInDescription && !searchTerms?.brands) ?
+                                <View style={styles.noItemsContainer}>
+                                    <Text style={styles.noItemsText}>
+                                        Currently there are no items in the database.
+                                    </Text>
+                                </View>
+                                :
+                                <View style={styles.noItemsContainer}>
+                                    <Text style={styles.noItemsText}>
+                                        NO items were returned
+                                    </Text>
+                                    <Text style={styles.noItemsText}>
+                                        with the selected search criteria. 
+                                    </Text>
+                                </View>
+                            }                        
+                    </View>
+                    :
+                    <Carousel 
+                        itemCards={browseItemsAsCarouselCards} 
+                        myItems={myItemsForCarousel === null ? [] : myItemsForCarousel.myItems}
+                    />
+                        :
+                        null
+            }
+            {/* {!showSetSearchCriteria &&
+                <View style={styles.fetchMoreContainer}>
+                    <Text>TEMPORARY DATA DISPLAY</Text>
+                    {data && data.browseItemsByPage.edges.length > 0 &&
+                        (data as BrowseItemsByPageResponseType).browseItemsByPage.edges.map(
+                            edge => <Text key={edge.node.title?.toString()}>{edge.node.title}</Text>)}
+                </View>            
+            } */}
+
+
+            {!showSetSearchCriteria && data && (data as BrowseItemsByPageResponseType).browseItemsByPage.pageInfo.hasNextPage &&
+                <View style={styles.fetchMoreContainer}>
+                    <Button 
+                        icon='page-next-outline' 
+                        mode='contained' 
+                        onPress={getMoreItemsToBrowse}
+                        disabled={false}
+                        color={theme.colors.primary.main}
+                    >
+                        MORE
+                    </Button> 
+                </View>
+            }
+
         </View>
     )
 }

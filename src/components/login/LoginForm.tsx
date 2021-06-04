@@ -8,12 +8,12 @@ import { theme } from '../../theme/theme'
 import { IconButton } from 'react-native-paper'
 import { Button } from 'react-native-paper'
 import { NotificationPropsType } from '../../types/notification/NotificationPropsType'
-import { LoginType } from '../../types/signup-login/LoginType'
-
+// import { LoginType } from '../../types/signup-login/LoginType'
+import { LoginInputVariablesType } from './queries'
 
 
 type LoginFormPropsType = {
-    submitLogin: (values: LoginType) => Promise<void>,
+    submitLogin: (values: LoginInputVariablesType) => Promise<void>,
     submitting: boolean,
     notification: NotificationPropsType | undefined
 }

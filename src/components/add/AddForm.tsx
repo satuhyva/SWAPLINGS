@@ -12,7 +12,6 @@ import { useAddItem } from './useAddItem'
 import Notification from '../common-components/notification/Notification'
 import { PriceGroupEnum } from '../../types/item/PriceGroupEnum'
 import { AddItemInputVariablesType } from './queries'
-import { titleIsValid, descriptionIsValid, brandIsValid, itemInputIsValid } from './validations'
 
 
 
@@ -31,24 +30,22 @@ const Add = () => {
         setBrand('')
         setPriceGroup('')
         itemUnderConstructionImageVar(undefined)
-        setShowErrors(false)
     }    
 
     const { notification, submitAddItem, submitting } = useAddItem(clearAll)
 
+    //TODO: Add maximum length for title and description and brand
+
+
     const submitItemDetails = async () => {
-        if (itemImage !== undefined && !itemInputIsValid(title, description, brand, priceGroup, itemImage)) {
+        if (!itemImage || !itemImage.clientUrl || title === '' || description === '' || priceGroup === '') {
             setShowErrors(true)
         } else {
-            // Actually this itemImage !== undefined is checked above, and therefore unnecessary, 
-            // but for some reason Typescript keeps complaining, so the extra check is performed to satisfy Typescript.
-            if (itemImage) {
-                let itemDetails: AddItemInputVariablesType = { 
+            let itemDetails: AddItemInputVariablesType = { 
                 title: title, description: description, priceGroup: priceGroup, imagePublicId: itemImage.publicId, imageSecureUrl: itemImage.secureUrl 
             }
             if (brand) itemDetails = { ...itemDetails, brand: brand }
             await submitAddItem(itemDetails)
-            }
         }
     }
 
@@ -69,7 +66,7 @@ const Add = () => {
                     handleValueChange={text => setTitle(text)}
                     isEditable={!submitting}
                     isVisible={true}
-                    error={showErrors && !titleIsValid(title) ? 'RED_TITLE' : undefined}
+                    error={showErrors && title === '' ? 'RED_TITLE' : undefined}
                 />
                 <Text style={styles.subtitle}>DESCRIPTION</Text>
                 <FormTextInput
@@ -78,7 +75,7 @@ const Add = () => {
                     handleValueChange={text => setDescription(text)}
                     isEditable={!submitting}
                     isVisible={true}
-                    error={showErrors && !descriptionIsValid(description) ? 'RED_TITLE' : undefined}
+                    error={showErrors && description === '' ? 'RED_TITLE' : undefined}
                 />
                 <Text style={styles.subtitle}>BRAND</Text>
                 <FormTextInput
@@ -87,16 +84,12 @@ const Add = () => {
                     handleValueChange={text => setBrand(text)}
                     isEditable={!submitting}
                     isVisible={true}
-                    error={showErrors && brand !== '' && !brandIsValid(brand) ? 'RED_TITLE' : undefined}
+                    error={undefined}
                 />
                 <View style={styles.priceGroupAndImageContainer}>
                     <View style={styles.toggleButtonOrImageContainer}>
                         <Text style={styles.subtitle}>PRICE GROUP</Text>
-                        {showErrors && priceGroup === '' ?
-                            <Text style={styles.priceGroupInfoWithError}>Estimate is required</Text>
-                            :
-                            <Text style={styles.priceGroupInfo}>Estimate the value in €</Text>
-                        }
+                        <Text style={showErrors && priceGroup === '' ? styles.priceGroupInfoWithError : styles.priceGroupInfo}>Estimate the value in €</Text>
                         <TogglePriceGroupButtons
                             priceGroup={priceGroup}
                             setPriceGroup={setPriceGroup}
@@ -105,11 +98,7 @@ const Add = () => {
                     </View>
                     <View style={styles.toggleButtonOrImageContainer}>
                         <Text style={styles.subtitle}>PHOTO</Text>
-                        {showErrors && !itemImage ?
-                            <Text style={styles.priceGroupInfoWithError}>Tap (photo is required)</Text>
-                            :
-                            <Text style={styles.priceGroupInfo}>Tap to take a photo</Text>
-                        }
+                        <Text style={showErrors && !itemImage ? styles.priceGroupInfoWithError : styles.priceGroupInfo}>Tap to take a photo</Text>
                         <ItemImage disabled={submitting}/>
                     </View>
                 </View>

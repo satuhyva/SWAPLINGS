@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native'
 import { theme } from '../../theme/theme'
 import { Dimensions } from 'react-native'
+import { CARD_HEIGHT } from '../carousel/carouselConstants'
 
 
 export const styles = StyleSheet.create({
@@ -67,5 +68,18 @@ export const styles = StyleSheet.create({
         marginTop: 10,
         width: Dimensions.get('window').width * 0.4
     },
+    fetchMoreContainer: {
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 10 + CARD_HEIGHT,
+    },
+    noItemsText: {
+        // marginTop: 10,
+        fontWeight: 'bold'
+    },
+    noItemsContainer: {
+        marginTop: 20,
+    }
 
 })

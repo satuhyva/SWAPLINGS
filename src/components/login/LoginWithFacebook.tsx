@@ -6,9 +6,7 @@ import { Button } from 'react-native-paper'
 import { ERROR_FACEBOOK_TITLE, ERROR_FACEBOOK_CONTENT } from '../../utils/common-constants/errorMessages'
 import { NotificationPropsType } from '../../types/notification/NotificationPropsType'
 import * as Facebook from 'expo-facebook'
-import { FacebookResponseType } from '../../types/facebook/FacebookResponseType'
 import { FACEBOOK_LOGIN_APP_ID } from '@env'
-
 
 
 
@@ -16,6 +14,12 @@ type LoginWithFacebookPropsType = {
     submitFacebookLogin: (accessToken: string, userId: string) => Promise<void>, 
     setNotification: (notification: NotificationPropsType | undefined) => void, 
     isDisabled: boolean
+}
+
+export type FacebookAPIResponseType = {
+    type: string,
+    token: string,
+    userId: string,
 }
 
 
@@ -28,7 +32,7 @@ const LoginWithFacebook: React.FC<LoginWithFacebookPropsType> = ({ submitFaceboo
                 appId: FACEBOOK_LOGIN_APP_ID,
               })
               const response = await Facebook.logInWithReadPermissionsAsync({ permissions: ['public_profile'] })
-              const responseObject = response as FacebookResponseType
+              const responseObject = response as FacebookAPIResponseType
               if (responseObject.type === 'success') {
                 await submitFacebookLogin(responseObject.token, responseObject.userId)
               } 

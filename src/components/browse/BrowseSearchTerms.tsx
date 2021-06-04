@@ -36,11 +36,15 @@ const BrowseSearchTerms: React.FC<BrowseSearchTermsPropsType> = ({ searchTerms, 
         if (titlePhrases !== '') seachCriteria = { ...seachCriteria, phrasesInTitle: titlePhrases.split(',').map(word => word.trim()) }
         if (descriptionPhrases !== '') seachCriteria = { ...seachCriteria, phrasesInDescription: descriptionPhrases.split(',').map(word => word.trim()) }
         if (brands !== '') seachCriteria = { ...seachCriteria, brands: brands.split(',').map(word => word.trim()) }
-        console.log(seachCriteria)
         searchCriteriaChanged(seachCriteria)
     }
 
-
+    const clearAllCriteria = () => {
+        setSelectedPriceGroups([])
+        setTitlePhrases('')
+        setDescriptionPhrases('')
+        setBrands('')
+    }
 
     return (
         <View style={styles.searchCriteriaContainer}>
@@ -108,6 +112,21 @@ const BrowseSearchTerms: React.FC<BrowseSearchTermsPropsType> = ({ searchTerms, 
                             SEARCH
                     </Button> 
                 </View>
+
+                {(selectedPriceGroups.length > 0 || titlePhrases !== '' || descriptionPhrases !== '' || brands !== '') &&
+                    <View style={styles.submitButtonContainer}>
+                        <Button 
+                            icon='delete-forever' 
+                            mode='contained' 
+                            onPress={clearAllCriteria}
+                            disabled={false}
+                            color={theme.colors.primary.main}
+                            >
+                                CLEAR ALL
+                        </Button> 
+                    </View>                    
+                }
+
 
             </View>
             {searchTerms !== undefined &&

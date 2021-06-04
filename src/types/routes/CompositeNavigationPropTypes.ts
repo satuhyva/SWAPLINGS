@@ -5,10 +5,14 @@ import { RootStackType } from './RootStackType'
 import { ScreensWithVisibleTabBarStackType } from './ScreensWithVisibleTabBarStackType'
 
 
-export type CompositeNavigationPropType = CompositeNavigationProp<    
+export type CompositeNavigationPropAddType = CompositeNavigationProp<    
     StackNavigationProp<RootStackType, 'Imaging'>,
     BottomTabNavigationProp<ScreensWithVisibleTabBarStackType, 'Add'>
 >
 
+export type CompositeNavigationPropMatchType = CompositeNavigationProp<    
+    StackNavigationProp<RootStackType, 'Imaging'>,
+    BottomTabNavigationProp<ScreensWithVisibleTabBarStackType, 'Match'>
+>
 
 

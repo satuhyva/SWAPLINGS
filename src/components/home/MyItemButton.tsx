@@ -21,9 +21,7 @@ const MyItemButton: React.FC<MyItemButtonPropsType> = ({ myItem }) => {
         })
     })
 
-    // arrow-expand-left
-    // arrow-expand-right
-    // arrow-expand-horizontal
+
     const displayTitle = myItem.title.length > 25 ? myItem.title.substring(0, 25) + '...' : myItem.title
 
     return (
