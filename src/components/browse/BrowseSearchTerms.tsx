@@ -50,14 +50,14 @@ const BrowseSearchTerms: React.FC<BrowseSearchTermsPropsType> = ({ searchTerms, 
         <View style={styles.searchCriteriaContainer}>
             <View>
                 <Text style={styles.subtitle}>SET SEARCH CRITERIA</Text>
-                <Text >No criteria? Just hit the SEARCH button.</Text>
+                <Text style={styles.paleText}>No criteria? Just hit the SEARCH button.</Text>
             </View>
 
 
             <View>
                 <Text  style={styles.priceGroupTitle}>PRICE GROUP</Text>
-                <Text>How valuable items would you like to view?</Text>
-                <Text>Pick any combination of price groups you like.</Text>
+                <Text style={styles.paleText}>How valuable items would you like to view?</Text>
+                <Text style={styles.paleText}>Pick any combination of price groups you like.</Text>
                 <PickPriceGroupsButtons
                     selectedPriceGroups={selectedPriceGroups}
                     priceGroupSelectionChanged={priceGroupSelectionChanged}
@@ -92,12 +92,12 @@ const BrowseSearchTerms: React.FC<BrowseSearchTermsPropsType> = ({ searchTerms, 
                 />
 
                 <View style={styles.rowContainer}>
-                    <Text style={styles.star}>*</Text>
+                    <Text style={[styles.star, styles.paleText]} >*</Text>
                     <View>
-                        <Text>List comma-separated search terms as input.</Text>
-                        <Text>The search will return items that contain at least </Text>
-                        <Text>one of the search terms present in each of the</Text>
-                        <Text>list you specify.</Text>
+                        <Text style={styles.paleText}>List comma-separated search terms as input.</Text>
+                        <Text style={styles.paleText}>The search will return items that contain at least </Text>
+                        <Text style={styles.paleText}>one of the search terms present in each of the</Text>
+                        <Text style={styles.paleText}>lists you specify.</Text>
                     </View>
                 </View>
                 

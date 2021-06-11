@@ -1,10 +1,12 @@
 import { StyleSheet } from 'react-native'
+import { theme } from '../../theme/theme'
 
 
 export const styles = StyleSheet.create({
 
     pageTitle: {
         marginTop: 60,
+        marginBottom: 10,
         fontSize: 25,
         fontWeight: 'bold',
         textAlign: 'center'
@@ -13,7 +15,7 @@ export const styles = StyleSheet.create({
         width: 150,
         height: 150,
         marginBottom: 5,
-        marginTop: 20,
+        // marginTop: 5,
         borderRadius: 8,
         backgroundColor: 'orange'
     },
@@ -23,20 +25,28 @@ export const styles = StyleSheet.create({
         alignItems: 'center'
     },
     myItemImage: {
-        width: 50,
-        height: 50,
+        width: 80,
+        height: 80,
         marginLeft: 3,
         marginRight: 3,
         borderRadius: 3,
         backgroundColor: 'orange'
     },
-    // subtitle: {
-    //     marginTop: 20,
-    //     marginBottom: 10,
-    //     fontSize: 20,
-    //     fontWeight: 'bold',
-    //     textAlign: 'center'
-    // },
+
+    itemTitle: {
+        // marginTop: 20,
+        // marginBottom: 10,
+        fontSize: 20,
+        fontWeight: 'bold',
+        textAlign: 'center'
+    },
+    matchButtonView: {
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 20,
+        marginBottom: 20,
+    },
     // removeAccountButtonView: {
     //     marginTop: 5,
     //     justifyContent: 'center',
@@ -46,6 +56,13 @@ export const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    itemImageButton: {
+        backgroundColor: theme.colors.primary.dark,
+    },
+    iconContainer: {
+        backgroundColor: theme.colors.primary.dark,
+        borderRadius: 3
     },
     // waitSpinnerContainer: {
     //     height: 100,

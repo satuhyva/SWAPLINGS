@@ -4,10 +4,10 @@ import { ADD_VALIDATION_CONSTANTS } from '../../add/validations'
 
 
     export const placeHolders = {
-        username: 'Username',
-        password: 'Password',
-        passwordConfirm: 'Confirm password',
-        email: 'Email',
+        username: '', //'Username',
+        password: '', //'Password',
+        passwordConfirm: '', //'Confirm password',
+        email: '', //'Email',
         itemTitle: '',
         itemDescription: '',
         itemBrand: '',

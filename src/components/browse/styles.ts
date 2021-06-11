@@ -22,6 +22,7 @@ export const styles = StyleSheet.create({
         alignItems: 'flex-start',
         marginTop: 5,
     },
+
     pickButton: {
         marginRight: 5, 
         borderColor: theme.colors.primary.light, 
@@ -33,7 +34,9 @@ export const styles = StyleSheet.create({
         fontWeight: 'bold',
         // textAlign: 'center'
     },
-
+    paleText: {
+        color: theme.colors.primary.veryLight, 
+    },
     priceGroupTitle: {
         marginTop: 8,
         fontWeight: 'bold',

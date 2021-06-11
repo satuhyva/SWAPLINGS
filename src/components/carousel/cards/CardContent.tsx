@@ -45,11 +45,11 @@ const CardContent: React.FC<CardContentPropsType> = ({ cardData, matchData }) =>
                                 <Text style={styles.matchDataNumber}>{matchData.myItemsMatchedWithThis.length}</Text>
                             </View>
                             <View style={styles.matchDataView}>
-                                <MIcon name='call-made' size={25} color={theme.colors.primary.contrast} />
+                                <MIcon name='call-received' size={25} color={theme.colors.primary.contrast} />
                                 <Text style={styles.matchDataNumber}>{matchData.myItemsMatchedFromThis.length}</Text>
                             </View>
                             <View style={styles.matchDataView}>
-                                <MIcon name='call-received' size={25} color={theme.colors.primary.contrast} />
+                                <MIcon name='call-made' size={25} color={theme.colors.primary.contrast} />
                                 <Text style={styles.matchDataNumber}>{matchData.myItemsMatchedToThis.length}</Text>
                             </View>
                         </View>                

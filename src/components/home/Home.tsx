@@ -30,8 +30,7 @@ const Home = () => {
             </View>
         )
     }
-    
-    console.log('data', data)
+
 
     return (
         <View style={styles.homeScreen}>

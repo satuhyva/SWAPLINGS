@@ -15,10 +15,18 @@ export type MyItemType = {
 
 export type MyItemForCarouselType = {
     id: string,
+    title: string,
     priceGroup: string, 
     imageSecureUrl: string | null
     matchedTo: { id: string }[]
     matchedFrom: { id: string }[]
+}
+
+
+export type MatchItemChatType = {
+    id: string,
+    title: string,
+    imageSecureUrl: string | null
 }
 
 

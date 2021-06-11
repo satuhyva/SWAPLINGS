@@ -42,3 +42,14 @@ export const MY_ITEMS_FOR_CAROUSEL = gql`
         `
 
 
+export const MY_ITEMS_IN_CACHE = gql`
+            query MyItemsInCache {
+                myItems {
+                    id
+                    title
+                    priceGroup
+                    imageSecureUrl
+                }
+            }
+        `
+
