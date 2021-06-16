@@ -6,7 +6,7 @@ import { IconButton } from 'react-native-paper'
 import { theme } from '../../../theme/theme'
 import MIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { MatchDataType } from '../../../types/match/MatchDataType'
-import { matchToHandleVar } from '../../../apollo/cache'
+import { matchToHandleVar, selectedMatchVar } from '../../../apollo/cache'
 import { useNavigation } from '@react-navigation/native'
 import { CompositeNavigationPropMatchType } from '../../../types/routes/CompositeNavigationPropTypes'
 
@@ -23,9 +23,13 @@ const CardContent: React.FC<CardContentPropsType> = ({ cardData, matchData }) =>
     const navigation = useNavigation<CompositeNavigationPropMatchType>()
 
     const handleMatchButtonPressed = () => {
+        selectedMatchVar(undefined)
         matchToHandleVar({
-            cardData: cardData,
-            matchData: matchData
+            mode: 'BROWSE',
+            item: { id: cardData.id, title: cardData.title, imageSecureUrl: cardData.imageSecureUrl },
+            matches: matchData.myItemsMatchedWithThis,
+            matchedFrom: matchData.myItemsMatchedFromThis,
+            matchedTo: matchData.myItemsMatchedToThis,
         })
         navigation.navigate('Match')
     }

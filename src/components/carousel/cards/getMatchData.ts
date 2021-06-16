@@ -7,24 +7,24 @@ import { MyItemForCarouselType } from '../../../types/item/MyItemType'
 export const getMatchData = (myItems: MyItemForCarouselType[], thisItem: ItemForCardType): MatchDataType => {
 
     let couldMatch = false
-    let myItemIdsMatchedToThisItem: { id: string, title: string, imageSecureUrl: string | null }[] = []
-    let myItemIdsMatchedFromThisItem: { id: string, title: string, imageSecureUrl: string | null }[] = []
+    let myItemIdsMatchedToThisItem: { id: string, title: string, imageSecureUrl: string}[] = []
+    let myItemIdsMatchedFromThisItem: { id: string, title: string, imageSecureUrl: string  }[] = []
 
     myItems.forEach(myItem => {
         if (myItem.priceGroup === thisItem.priceGroup) {
             couldMatch = true
             myItem.matchedTo.forEach(toId => {
-                if (thisItem.id === toId.id) myItemIdsMatchedToThisItem.push({ id: myItem.id, title: myItem.title, imageSecureUrl: myItem.imageSecureUrl })
+                if (thisItem.id === toId.id) myItemIdsMatchedToThisItem.push({ id: myItem.id, title: myItem.title, imageSecureUrl: myItem.imageSecureUrl ?? '' })
             })
             myItem.matchedFrom.forEach(fromId => {
-                if (thisItem.id === fromId.id) myItemIdsMatchedFromThisItem.push({ id: myItem.id, title: myItem.title, imageSecureUrl: myItem.imageSecureUrl })
+                if (thisItem.id === fromId.id) myItemIdsMatchedFromThisItem.push({ id: myItem.id, title: myItem.title, imageSecureUrl: myItem.imageSecureUrl ?? '' })
             })            
         }
     })
 
 
     // This is not a very clever to do this, but there are not likely to be many matched items anyway.
-    let myItemIdsMatchedWithThisItem: { id: string, title: string, imageSecureUrl: string | null }[] = []
+    let myItemIdsMatchedWithThisItem: { id: string, title: string, imageSecureUrl: string }[] = []
     myItemIdsMatchedToThisItem.forEach(myId => {
         const isNotPresent = myItemIdsMatchedFromThisItem.every(fromId => fromId.id !== myId.id)
         if (!isNotPresent) myItemIdsMatchedWithThisItem.push(myId)

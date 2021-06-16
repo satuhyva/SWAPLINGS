@@ -15,4 +15,13 @@ export type CompositeNavigationPropMatchType = CompositeNavigationProp<
     BottomTabNavigationProp<ScreensWithVisibleTabBarStackType, 'Match'>
 >
 
+export type CompositeNavigationPropBrowseType = CompositeNavigationProp<    
+    StackNavigationProp<RootStackType, 'Imaging'>,
+    BottomTabNavigationProp<ScreensWithVisibleTabBarStackType, 'Browse'>
+>
+
+export type CompositeNavigationPropHomeType = CompositeNavigationProp<    
+    StackNavigationProp<RootStackType, 'Imaging'>,
+    BottomTabNavigationProp<ScreensWithVisibleTabBarStackType, 'Home'>
+>
 

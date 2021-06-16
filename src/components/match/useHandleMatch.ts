@@ -4,8 +4,8 @@ import { NotificationPropsType } from 'src/types/notification/NotificationPropsT
 import { ADD_MATCH, ChangeMatchInputVariablesType, AddMatchResponseType, REMOVE_MATCH, RemoveMatchResponseType } from './queries'
 // import { updateCacheAfterAddedItem } from './updateCacheAfterAddedItem'
 // import { setAddItemOutcomeNotification } from './addItemOutcomeNotifications'
-import { MatchActionType } from './HandleBrowseMatch'
-
+// import { MatchActionType } from './HandleBrowseMatch'
+import { ItemImageButtonActionType } from '../common-components/handle-matches/ItemImageButtonsRow'
 
 
 
@@ -13,9 +13,9 @@ import { MatchActionType } from './HandleBrowseMatch'
 
 type UseHandleMatchType = {
     submitting: boolean,
-    submitAddMatch: (matchAction: MatchActionType) => Promise<boolean>,
+    submitAddMatch: (action: ItemImageButtonActionType) => Promise<boolean>,
     notification: NotificationPropsType | undefined,
-    submitRemoveMatch: (matchAction: MatchActionType) => Promise<boolean>,
+    submitRemoveMatch: (action: ItemImageButtonActionType) => Promise<boolean>,
 }
 
 
@@ -38,18 +38,12 @@ export const useHandleMatch = (): UseHandleMatchType => {
         }
     })  
     
-    // const [addItem] = useMutation<AddItemResponseType, { addItemInput: AddItemInputVariablesType }>(ADD_ITEM, {
-    //     update(cache, { data }) {
-    //         updateCacheAfterAddedItem(cache, data)
-    //     }
-    // })
 
-    // 
-    const submitAddMatch = async (matchAction: MatchActionType): Promise<boolean> => {
+    const submitAddMatch = async (action: ItemImageButtonActionType): Promise<boolean> => {
         setSubmitting(true)
         const addMatchInput = {
-            myItemId: matchAction.myItemId, 
-            itemToId: matchAction.cardData.id
+            myItemId: action.myItem.id, 
+            itemToId: action.otherItem.id
         }
         try {
             const { data } = await addMatch({ variables: { changeMatchInput: addMatchInput }})
@@ -68,11 +62,11 @@ export const useHandleMatch = (): UseHandleMatchType => {
         }
     }
 
-    const submitRemoveMatch = async (matchAction: MatchActionType): Promise<boolean> => {
+    const submitRemoveMatch = async (action: ItemImageButtonActionType): Promise<boolean> => {
         setSubmitting(true)
         const removeMatchInput = {
-            myItemId: matchAction.myItemId, 
-            itemToId: matchAction.cardData.id
+            myItemId: action.myItem.id, 
+            itemToId: action.otherItem.id
         }
         try {
             const { data } = await removeMatch({ variables: { changeMatchInput: removeMatchInput }})

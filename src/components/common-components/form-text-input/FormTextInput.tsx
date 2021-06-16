@@ -9,7 +9,9 @@ import { labels, labels_RED_TITLE, placeHolders } from './formTextInputLabels'
 
 
 type FormTextInputPropsType = {
-    target: 'username' | 'password' | 'passwordConfirm' | 'email' | 'itemTitle' | 'itemDescription' | 'itemBrand' | 'searchTitle' | 'searchDescription' | 'searchBrand',
+    target: 'username' | 'password' | 'passwordConfirm' | 'email' 
+        | 'itemTitle' | 'itemDescription' | 'itemBrand' | 'searchTitle' | 'searchDescription' | 'searchBrand'
+        | 'matchPost',
     value: string,
     handleValueChange: (newValue: string) => void,
     isEditable: boolean,
@@ -37,9 +39,11 @@ const FormTextInput: React.FC<FormTextInputPropsType> = ({ target, value, handle
                 blurOnSubmit={true}
                 editable={isEditable}
                 autoCapitalize='none'
+                multiline={target === 'matchPost' ? true : false}
+                numberOfLines={target === 'matchPost' ? 3 : 1}
                 autoCorrect={false}
                 secureTextEntry={!isVisible}
-                style={styles.input}
+                style={target === 'matchPost' ? styles.inputMultiline : styles.input}
                 mode='outlined'
                 theme={{ colors: { text: theme.colors.primary.main,   primary: theme.colors.primary.main } }}
                 testID={`FormTextInput-${target}`}

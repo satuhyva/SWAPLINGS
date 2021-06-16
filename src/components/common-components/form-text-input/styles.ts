@@ -9,6 +9,11 @@ export const styles = StyleSheet.create({
         fontSize: 16,
         width: Dimensions.get('window').width * 0.8
     },
+    inputMultiline: {
+        // height: 80,
+        fontSize: 16,
+        width: Dimensions.get('window').width * 0.8
+    },
     inputContainer: {
         marginTop: 5,
     },

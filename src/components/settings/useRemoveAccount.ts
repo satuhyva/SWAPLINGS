@@ -44,6 +44,7 @@ export const useRemoveAccount = (): UseRemoveAccountType => {
                 console.log(parsedResponse)
                 throw new Error()
             }
+            setIsSubmitting(false)
         } catch (error) {
             console.log(error)
             setNotification({

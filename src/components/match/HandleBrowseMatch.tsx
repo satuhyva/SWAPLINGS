@@ -1,53 +1,55 @@
-import React, { useState } from 'react'
-import { View, Text } from 'react-native'
-import { styles } from './styles'
-import { MatchToHandleType } from '../../types/match/MatchToHandleType'
-import { MyItemsInCacheForMatchingType } from './Match'
-import ItemsRelevantToMatchPage from './ItemsRelevantToMatchPage'
-import { ItemForCardType } from 'src/types/item/ItemForCardType'
-import ManageMatchAction from './ManageMatchAction'
+export default {}
+// import React, { useState } from 'react'
+// import { View, Text } from 'react-native'
+// import { styles } from './styles'
+// import { MatchToHandleType } from '../../types/match/MatchToHandleType'
+// import { MyItemsInCacheForMatchingType } from './Match'
+// import ItemsRelevantToMatchPage from './ItemsRelevantToMatchPage'
+// import { ItemForCardType } from 'src/types/item/ItemForCardType'
+// import ManageAction from './ManageAction'
+// import { ItemImageButtonActionType } from '../common-components/handle-matches/ItemImageButtonsRow'
 
 
 
-type HandleBrowseMatchPropsType = {
-    matchToHandle: MatchToHandleType,
-    myItemsInCache: MyItemsInCacheForMatchingType[],
-}
+// type HandleBrowseMatchPropsType = {
+//     matchToHandle: MatchToHandleType,
+//     myItemsInCache: MyItemsInCacheForMatchingType[],
+// }
 
 
 
-export type MatchActionType = {
-    currentState: 'BOTH' | 'TO' | 'FROM' | 'AVAILABLE',
-    myItemId: string,
-    myItemTitle: string,
-    myItemUrl: string,
-    cardData: ItemForCardType
-}
+// export type MatchActionType = {
+//     currentState: 'BOTH' | 'TO' | 'FROM' | 'AVAILABLE',
+//     myItemId: string,
+//     myItemTitle: string,
+//     myItemUrl: string,
+//     cardData: ItemForCardType
+// }
 
 
 
 
-const HandleBrowseMatch: React.FC<HandleBrowseMatchPropsType> = ({ matchToHandle, myItemsInCache }) => {
+// const HandleBrowseMatch: React.FC<HandleBrowseMatchPropsType> = ({ matchToHandle, myItemsInCache }) => {
 
-    const [matchAction, setMatchAction] = useState<MatchActionType | undefined>(undefined)
+//     const [action, setAction] = useState<ItemImageButtonActionType | undefined>(undefined)
     
 
-    return (
-        <View style={styles.pageContentContainer}>
-            <Text style={styles.pageTitle}>HANDLE MATCH</Text>
-            {matchAction ?
-                <ManageMatchAction matchAction={matchAction} cardData={matchAction.cardData}/>
-                :
-                <ItemsRelevantToMatchPage
-                    matchToHandle={matchToHandle}
-                    myItemsInCache={myItemsInCache}
-                    setMatchAction={setMatchAction}
-                />
-            }
-        </View>
-    )
-}
+//     return (
+//         <View style={styles.pageContentContainer}>
+//             <Text style={styles.pageTitle}>HANDLE SWAP PROPOSALS</Text>
+//             {action ?
+//                 <ManageAction action={action}/>
+//                 :
+//                 <ItemsRelevantToMatchPage
+//                     matchToHandle={matchToHandle}
+//                     myItemsInCache={myItemsInCache}
+//                     setAction={setAction}
+//                 />
+//             }
+//         </View>
+//     )
+// }
 
-export default HandleBrowseMatch
+// export default HandleBrowseMatch
 
 

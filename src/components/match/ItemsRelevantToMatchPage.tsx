@@ -1,98 +1,113 @@
-import React from 'react'
-import { View, Text, Image } from 'react-native'
-import { styles } from './styles'
-import { MatchToHandleType } from '../../types/match/MatchToHandleType'
-import { MyItemsInCacheForMatchingType } from './Match'
-import ItemsImageButtonsRow from './ItemsImageButtonsRow'
-import { MatchActionType } from './HandleBrowseMatch'
-import { Button } from 'react-native-paper'
-import { theme } from '../../theme/theme'
-import { matchToHandleVar } from '../../apollo/cache'
+export default {}
+// import React from 'react'
+// import { View, Text, Image } from 'react-native'
+// import { styles } from './styles'
+// import { MatchToHandleType } from '../../types/match/MatchToHandleType'
+// import { MyItemsInCacheForMatchingType } from './Match'
+// import { ItemImageButtonActionType } from '../common-components/handle-matches/ItemImageButtonsRow'
+// import { Button } from 'react-native-paper'
+// import { theme } from '../../theme/theme'
+// import { matchToHandleVar } from '../../apollo/cache'
+// import {  useNavigation } from '@react-navigation/native'
+// import { CompositeNavigationPropBrowseType } from '../../types/routes/CompositeNavigationPropTypes'
+// import ItemImageButtonsRow from '../common-components/handle-matches/ItemImageButtonsRow'
 
 
 
-type ItemsRelevantToMatchPagePropsType = {
-    matchToHandle: MatchToHandleType,
-    myItemsInCache: MyItemsInCacheForMatchingType[],
-    setMatchAction: (actionType: MatchActionType) => void,
+// type ItemsRelevantToMatchPagePropsType = {
+//     matchToHandle: MatchToHandleType,
+//     myItemsInCache: MyItemsInCacheForMatchingType[],
+//     setAction: (action: ItemImageButtonActionType) => void,
 
-}
-
-
-
-const ItemsRelevantToMatchPage: React.FC<ItemsRelevantToMatchPagePropsType> = ({ matchToHandle, myItemsInCache, setMatchAction }) => {
+// }
 
 
-    const { cardData, matchData } = matchToHandle
 
-    const myItemsAvailableToMatch = () => {
-        let itemsAvailable: MyItemsInCacheForMatchingType[] = []
-        myItemsInCache.forEach(itemInCache => {
-            if (matchData.myItemsMatchedWithThis.every(bothWaysItem => bothWaysItem.id !== itemInCache.id)
-            || matchData.myItemsMatchedFromThis.every(fromItem => fromItem.id !== itemInCache.id)
-            || matchData.myItemsMatchedToThis.every(toItem => toItem.id !== itemInCache.id)
-            ) {
-                itemsAvailable.push(itemInCache)
-            }
-        })
-        return itemsAvailable
-    }
-
-    const myItemsStillAvailable = myItemsAvailableToMatch()
-
-    const cancelHandleMatch = () => {
-        matchToHandleVar(undefined)
-    }
+// const ItemsRelevantToMatchPage: React.FC<ItemsRelevantToMatchPagePropsType> = ({ matchToHandle, myItemsInCache, setAction }) => {
 
 
-    return (
-        <>
-            <Text style={styles.itemTitle}>{cardData.title.toLocaleUpperCase()}</Text>
-            <Image 
-                source={{uri: cardData.imageSecureUrl}}
-                style={styles.image} 
-            /> 
+//     const { cardData, matchData } = matchToHandle
+//     const navigation = useNavigation<CompositeNavigationPropBrowseType>()
 
-            <ItemsImageButtonsRow
-                type='BOTH'
-                itemsForButtons={matchData.myItemsMatchedWithThis}
-                cardData={cardData}
-                setMatchAction={setMatchAction}
-            />
-            <ItemsImageButtonsRow
-                type='TO'
-                cardData={cardData}
-                itemsForButtons={matchData.myItemsMatchedToThis}
-                setMatchAction={setMatchAction}
-            />            
-            <ItemsImageButtonsRow
-                type='FROM'
-                cardData={cardData}
-                itemsForButtons={matchData.myItemsMatchedFromThis}
-                setMatchAction={setMatchAction}
-            />            
-            <ItemsImageButtonsRow
-                type='AVAILABLE'
-                cardData={cardData}
-                itemsForButtons={myItemsStillAvailable}
-                setMatchAction={setMatchAction}
-            />
+//     const myItemsAvailableToMatch = () => {
+//         let itemsAvailable: MyItemsInCacheForMatchingType[] = []
+//         myItemsInCache.forEach(itemInCache => {
+//             if (matchData.myItemsMatchedWithThis.every(bothWaysItem => bothWaysItem.id !== itemInCache.id)
+//             && matchData.myItemsMatchedFromThis.every(fromItem => fromItem.id !== itemInCache.id)
+//             && matchData.myItemsMatchedToThis.every(toItem => toItem.id !== itemInCache.id)
+//             ) {
+//                 itemsAvailable.push(itemInCache)
+//             }
+//         })
+//         return itemsAvailable
+//     }
 
-            <View style={styles.matchButtonView}>
-                <Button 
-                    icon='keyboard-return' 
-                    mode='contained' 
-                    onPress={cancelHandleMatch}
-                    disabled={false}
-                    color={theme.colors.primary.main}
-                >
-                    BACK
-                </Button>
-            </View>
-        </>
-    )
-}
+//     const myItemsStillAvailable = myItemsAvailableToMatch()
 
-export default ItemsRelevantToMatchPage
+//     const cancelHandleMatch = () => {
+//         matchToHandleVar(undefined)
+//         navigation.navigate('Browse')
+//     }
+
+//     const mainItem = {
+//         id: matchToHandle.cardData.id,
+//         title: matchToHandle.cardData.title,
+//         imageSecureUrl: matchToHandle.cardData.imageSecureUrl
+//     }
+
+
+//     return (
+//         <>
+//             <Text style={styles.itemTitle}>{cardData.title.toLocaleUpperCase()}</Text>
+//             <Image 
+//                 source={{uri: cardData.imageSecureUrl}}
+//                 style={styles.image} 
+//             /> 
+
+//             <ItemImageButtonsRow
+//                 mode='BROWSE'
+//                 type='BOTH'
+//                 itemsForButtons={matchData.myItemsMatchedWithThis}
+//                 mainItem={mainItem}
+//                 setAction={setAction}
+//             />
+//             <ItemImageButtonsRow
+//                 mode='BROWSE'
+//                 type='TO'
+//                 itemsForButtons={matchData.myItemsMatchedToThis}
+//                 mainItem={mainItem}
+//                 setAction={setAction}
+//             />            
+//             <ItemImageButtonsRow
+//                 mode='BROWSE'
+//                 type='FROM'
+//                 itemsForButtons={matchData.myItemsMatchedFromThis}
+//                 mainItem={mainItem}
+//                 setAction={setAction}
+//             />            
+//             <ItemImageButtonsRow
+//                 mode='BROWSE'
+//                 type='AVAILABLE'
+//                 itemsForButtons={myItemsStillAvailable}
+//                 mainItem={mainItem}
+//                 setAction={setAction}
+//             />
+
+//             <View style={styles.matchButtonView}>
+//                 <Button 
+//                     icon='keyboard-return' 
+//                     mode='contained' 
+//                     onPress={cancelHandleMatch}
+//                     disabled={false}
+//                     color={theme.colors.primary.main}
+//                 >
+//                     BACK
+//                 </Button>
+//             </View>
+//         </>
+//     )
+// }
+
+// export default ItemsRelevantToMatchPage
 
 

@@ -3,7 +3,10 @@ import { View, Image, Text, ImageSourcePropType, TouchableOpacity  } from 'react
 import { styles } from './styles'
 import { MyItemType } from '../../types/item/MyItemType'
 import { IconButton } from 'react-native-paper'
-// import MIcon from 'react-native-vector-icons/MaterialCommunityIcons'
+import { matchToHandleVar, selectedMatchVar } from '../../apollo/cache'
+import { useNavigation } from '@react-navigation/native'
+import { CompositeNavigationPropMatchType } from '../../types/routes/CompositeNavigationPropTypes'
+
 
 
 type MyItemButtonPropsType = {
@@ -12,20 +15,57 @@ type MyItemButtonPropsType = {
 
 const MyItemButton: React.FC<MyItemButtonPropsType> = ({ myItem }) => {
 
-    let matches: string[] = []
+    const navigation = useNavigation<CompositeNavigationPropMatchType>()
+    const matches: { id: string, title: string, imageSecureUrl: string }[] = []
+    const matchedFrom:  { id: string, title: string, imageSecureUrl: string }[] = []
+    const matchedTo:  { id: string, title: string, imageSecureUrl: string }[] = []
+
     myItem.matchedFrom.forEach(itemMatchedFrom => {
+        let isMatched = false
+        const itemFrom = { id: itemMatchedFrom.id,  title:  itemMatchedFrom.title, imageSecureUrl:  itemMatchedFrom.imageSecureUrl ?? '' }
         myItem.matchedTo.forEach(itemMatchedTo => {
             if (itemMatchedFrom.id === itemMatchedTo.id) {
-                matches.push(itemMatchedFrom.id)
+                matches.push(itemFrom)
+                isMatched = true
             }
         })
+        if (!isMatched) {
+            matchedFrom.push(itemFrom)
+        }
     })
+
+    myItem.matchedTo.forEach(itemMatchedTo => {
+        const isNotAMatch = matches.every(matchedItem => matchedItem.id !== itemMatchedTo.id)
+        if (isNotAMatch) {
+            matchedTo.push({ id: itemMatchedTo.id,  title:  itemMatchedTo.title, imageSecureUrl:  itemMatchedTo.imageSecureUrl ?? '' })
+        }
+    })
+
+
+    const handleMyItemButtonPressed = () => {
+        selectedMatchVar(undefined)
+        matchToHandleVar({
+            mode: 'MY',
+            item: {
+                id: myItem.id,
+                title: myItem.title,
+                imageSecureUrl: myItem.imageSecureUrl ?? '',
+            },
+            matches: matches,
+            matchedFrom: matchedFrom,
+            matchedTo: matchedTo,
+        })
+        navigation.navigate('Match')
+    }
+
+
+
 
 
     const displayTitle = myItem.title.length > 25 ? myItem.title.substring(0, 25) + '...' : myItem.title
 
     return (
-        <TouchableOpacity>
+        <TouchableOpacity onPress={handleMyItemButtonPressed}>
             <View style={styles.myItemButtonContainer} >
                 {myItem.imageSecureUrl ?
                     <Image
@@ -46,8 +86,8 @@ const MyItemButton: React.FC<MyItemButtonPropsType> = ({ myItem }) => {
                 <View style={styles.itemDetailsContainer}>
                     <Text style={styles.myItemTitle}>{displayTitle.toLocaleUpperCase()}</Text>
                     <Text style={styles.matchText}>{`${matches.length}    ${matches.length === 1 ? 'MATCH' : 'MATCHES'}`}</Text>
-                    <Text style={styles.text}>{`${myItem.matchedFrom.length}    ${myItem.matchedFrom.length === 1 ? 'item': 'items'} others are offering for this item`}</Text>
-                    <Text style={styles.text}>{`${myItem.matchedTo.length}    ${myItem.matchedTo.length === 1 ? 'item': 'items'} I want to swap this item with`}</Text>
+                    <Text style={styles.text}>{`${matchedFrom.length}    ${matchedFrom.length === 1 ? 'item': 'items'} others are offering for this item`}</Text>
+                    <Text style={styles.text}>{`${matchedTo.length}    ${matchedTo.length === 1 ? 'item': 'items'} I want to swap this item with`}</Text>
                 </View>
             </View>
         </TouchableOpacity>

@@ -14,6 +14,29 @@ export const MY_ITEMS_IN_CACHE = gql`
         `
 
 
+export const ITEMS_CHAT = gql`
+    query itemsChat($itemsChatInput: ItemsChatInput!){
+        itemsChat(itemsChatInput: $itemsChatInput) {
+            post
+            postingItemId
+            createdAt          
+        }
+    }
+`
+export type ItemsChatInputVariablesType = {
+    itemIdA: string,
+    itemIdB: string,
+}
+export type ItemsChatResponseType = {
+    itemsChat: 
+        {
+            post: string,
+            postingItemId: string,
+            createdAt: string,
+        }[]
+}
+
+
 export const REMOVE_MATCH = gql`
     mutation removeMatch($changeMatchInput: ChangeMatchInput) {
         removeMatch(changeMatchInput: $changeMatchInput) {
@@ -75,6 +98,55 @@ export const ADD_MATCH = gql`
         }
     }
 `
+
+
+export const ADD_POST = gql`
+    mutation addPost($addPostInput: AddPostInput!) {
+        addPost(addPostInput: $addPostInput) {
+            success
+            message
+            chat {
+                id
+                itemIdA
+                personIdA
+                itemIdB
+                personIdB
+                posts {
+                    post
+                    postingItemId
+                    createdAt
+                }
+            }
+        }
+    }
+`
+
+
+export type ChatType = {
+    id: string,
+    itemIdA: string,
+    personIdA: string,
+    itemIdB: string,
+    personIdB: string,
+    posts: {
+        post: string,
+        postingItemId: string,
+        createdAt: number
+    }[]
+}
+
+export type AddPostInputVariablesType = {
+    itemIdA: string,
+    itemIdB: string,
+    post: string
+}
+export type AddPostResponseType = {
+    addPost: {
+        success: boolean,
+        message: string,
+        chat: ChatType
+    }
+}
 
 
 

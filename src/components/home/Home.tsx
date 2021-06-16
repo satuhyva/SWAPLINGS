@@ -13,6 +13,7 @@ const Home = () => {
     const { loading, error, data } = useQuery<MyItemsResponseType>(MY_ITEMS)
     const [showErrorNotification, setShowErrorNotification] = useState(false)
 
+
     if (loading) return <WaitSpinner/>
 
     if (error || !data) {
@@ -30,6 +31,7 @@ const Home = () => {
             </View>
         )
     }
+
 
 
     return (

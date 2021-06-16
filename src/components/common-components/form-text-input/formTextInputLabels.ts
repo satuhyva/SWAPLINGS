@@ -14,6 +14,7 @@ import { ADD_VALIDATION_CONSTANTS } from '../../add/validations'
         searchTitle: 'e.g. table, sofa, chair',
         searchDescription: 'e.g. living room, white, like new',
         searchBrand: 'e.g. Interface, Pohjanmaan',
+        matchPost: 'Type a new message here...'
     }
 
     export const labels = {
@@ -26,7 +27,8 @@ import { ADD_VALIDATION_CONSTANTS } from '../../add/validations'
         itemBrand: 'Brand and possible model (optional)',
         searchTitle: '',
         searchDescription: '',
-        searchBrand: ''
+        searchBrand: '',
+        matchPost: ''
     }
     
     export const labels_RED_TITLE = {
@@ -39,5 +41,6 @@ import { ADD_VALIDATION_CONSTANTS } from '../../add/validations'
         itemBrand: `Brand (${ADD_VALIDATION_CONSTANTS.brandMin}-${ADD_VALIDATION_CONSTANTS.brandMax} characters) is required`,
         searchTitle: '',
         searchDescription: '',
-        searchBrand: ''
+        searchBrand: '',
+        matchPost: 'Message must be at least 1 characters long!'
     }
