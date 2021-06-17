@@ -32,7 +32,10 @@ export const useHandleChat = (): UseHandleChatType => {
         }
         try {
             const { data } = await addPost({ variables: { addPostInput: addPostInput }})
-            if (data && data.addPost && data.addPost.success) return true
+            if (data && data.addPost && data.addPost.success) {
+                setSubmittingPost(false)
+                return true
+            }
             return false
         } catch (error) {
             console.log('error\n', error)

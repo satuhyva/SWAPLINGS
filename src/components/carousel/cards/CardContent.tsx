@@ -9,10 +9,6 @@ import { MatchDataType } from '../../../types/match/MatchDataType'
 import { matchToHandleVar, selectedMatchVar } from '../../../apollo/cache'
 import { useNavigation } from '@react-navigation/native'
 import { CompositeNavigationPropMatchType } from '../../../types/routes/CompositeNavigationPropTypes'
-import FastImage from 'react-native-fast-image'
-
-
-
 
 
 
@@ -27,7 +23,7 @@ type CardContentPropsType = {
 const CardContent: React.FC<CardContentPropsType> = ({ cardData, matchData }) => {
 
     const navigation = useNavigation<CompositeNavigationPropMatchType>()
-    console.log('FastImage', FastImage)
+
 
     const handleMatchButtonPressed = () => {
         selectedMatchVar(undefined)
@@ -45,14 +41,6 @@ const CardContent: React.FC<CardContentPropsType> = ({ cardData, matchData }) =>
             <View style={styles.cardBoard}>
                 <Text style={styles.itemTitle}>{cardData.title.toLocaleUpperCase()}</Text>
                
-                {/* <FastImage
-                    style={{ width: 200, height: 200 }}
-                    source={{
-                        uri: cardData.imageSecureUrl,
-                        priority: FastImage.priority.normal,
-                    }}
-                    resizeMode={FastImage.resizeMode.contain}
-                /> */}
                     <Image 
                         source={{uri: cardData.imageSecureUrl}}
                         style={styles.image} 

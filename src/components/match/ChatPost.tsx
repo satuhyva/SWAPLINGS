@@ -18,15 +18,16 @@ const ChatPost: React.FC<ChatPostPropsType> = ({ post, isMyItem, imageUrl }) => 
     return (
         <View style={styles.chatPostContainer}>
             <View style={styles.avatarContainer}>
-                {!isMyItem && <Avatar.Image size={30} source={{uri: imageUrl}} />}
+                {!isMyItem && <Avatar.Image size={40} source={{uri: imageUrl}} />}
             </View>
             
             <View style={styles.contentContainer}>
                 <Text style={styles.dateTimeText}>{getDisplayDateTime(post.createdAt)}</Text>
                 <Text>{post.post}</Text>
             </View>
+            
             <View  style={styles.avatarContainer}>
-                {isMyItem && <Avatar.Image size={30} source={{uri: imageUrl}} />}
+                {isMyItem && <Avatar.Image size={40} source={{uri: imageUrl}} />}
             </View>
             
         </View>

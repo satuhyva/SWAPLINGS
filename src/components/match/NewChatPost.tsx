@@ -61,7 +61,7 @@ const NewChatPost: React.FC<NewChatPostPropsType> = ({ selectedMatch, refetchPos
                 <View style={styles.postIconBackgroundCircle}>
                     <IconButton
                         icon='send'
-                        color={theme.colors.primary.contrast}
+                        color='#FFFFFF'
                         size={30}
                         onPress={submitNewPost}
                         disabled={submittingPost}

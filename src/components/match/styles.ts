@@ -165,11 +165,13 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'flex-start',
         // backgroundColor: 'powderblue',
-        width: Dimensions.get('window').width * 0.9 - 2 * 35,
+        width: Dimensions.get('window').width * 0.9 - 2 * 40,
+        marginLeft: 5,
+        marginRight: 5,
     },
     avatarContainer: {
-        width: 35,
-        height: 35,
+        width: 40,
+        height: 40,
         // backgroundColor: 'powderblue',
     },
     scrollView: {
