@@ -17,9 +17,15 @@ export const MY_ITEMS_IN_CACHE = gql`
 export const ITEMS_CHAT = gql`
     query itemsChat($itemsChatInput: ItemsChatInput!){
         itemsChat(itemsChatInput: $itemsChatInput) {
-            post
-            postingItemId
-            createdAt          
+            id 
+            itemIdA
+            itemIdB
+            posts {
+                post
+                postingItemId
+                createdAt                
+            }
+          
         }
     }
 `
@@ -29,11 +35,17 @@ export type ItemsChatInputVariablesType = {
 }
 export type ItemsChatResponseType = {
     itemsChat: 
-        {
+    {
+        id: string,
+        itemIdA: string,
+        itemIdB: string,
+        posts: {
             post: string,
             postingItemId: string,
             createdAt: string,
         }[]
+    }
+
 }
 
 
@@ -43,7 +55,13 @@ export const REMOVE_MATCH = gql`
             success
             message
             myItem {
+                id
                 title 
+                priceGroup
+                description
+                brand
+                imagePublicId
+                imageSecureUrl
                 matchedTo {
                     id
                     title
@@ -75,7 +93,13 @@ export const ADD_MATCH = gql`
             success
             message
             myItem {
+                id
                 title 
+                priceGroup
+                description
+                brand
+                imagePublicId
+                imageSecureUrl
                 matchedTo {
                     id
                     title

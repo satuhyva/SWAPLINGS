@@ -26,7 +26,7 @@ const Match = () => {
 
     const matchToHandle = useReactiveVar(matchToHandleVar)
     const selectedMatch = useReactiveVar(selectedMatchVar)
-    const navigation = useNavigation<CompositeNavigationPropHomeType>()
+    const navigation = useNavigation<CompositeNavigationPropHomeType | CompositeNavigationPropBrowseType>()
 
     const client = useApolloClient()
     const myItemsInCache: { myItems: MyItemsInCacheForMatchingType[] } | null | undefined = client.readQuery({
@@ -40,6 +40,7 @@ const Match = () => {
     if (matchToHandle !== undefined) {
         return <HandleMatch matchToHandle={matchToHandle} myItemsInCache={myItemsInCache ? myItemsInCache.myItems : []}/>
     }
+
 
 
     return (

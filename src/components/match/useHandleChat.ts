@@ -8,7 +8,7 @@ import { ADD_POST, AddPostInputVariablesType, AddPostResponseType } from './quer
 
 
 type UseHandleChatType = {
-    submitting: boolean,
+    submittingPost: boolean,
     postNotification: NotificationPropsType | undefined,
     submitPost: (itemIdA: string, itemIdB: string, post: string) => Promise<boolean>,
 }
@@ -18,18 +18,13 @@ type UseHandleChatType = {
 export const useHandleChat = (): UseHandleChatType => {
 
 
-    const [submitting, setSubmitting] = useState(false)
+    const [submittingPost, setSubmittingPost] = useState(false)
     const [postNotification, setPostNotification] = useState<NotificationPropsType | undefined>(undefined)
-    const [addPost] = useMutation<AddPostResponseType, { addPostInput: AddPostInputVariablesType }>(ADD_POST, {
-        update(cache, { data }) {
-            // TODO: toteuta tämä!
-            console.log('updating cache',cache, data)
-        }
-    })
+    const [addPost] = useMutation<AddPostResponseType, { addPostInput: AddPostInputVariablesType }>(ADD_POST)
 
 
     const submitPost = async (itemIdA: string, itemIdB: string, post: string): Promise<boolean> => {
-        setSubmitting(true)
+        setSubmittingPost(true)
         const addPostInput = {
             itemIdA: itemIdA, 
             itemIdB: itemIdB, 
@@ -37,8 +32,8 @@ export const useHandleChat = (): UseHandleChatType => {
         }
         try {
             const { data } = await addPost({ variables: { addPostInput: addPostInput }})
-            console.log(data)
-            return true
+            if (data && data.addPost && data.addPost.success) return true
+            return false
         } catch (error) {
             console.log('error\n', error)
             setPostNotification({
@@ -47,7 +42,7 @@ export const useHandleChat = (): UseHandleChatType => {
                 themeType: 'error',
                 clearNotification: () =>  setPostNotification(undefined)
             })
-            setSubmitting(false)
+            setSubmittingPost(false)
             return false
         }
     }
@@ -56,7 +51,7 @@ export const useHandleChat = (): UseHandleChatType => {
 
 
     return {
-        submitting,
+        submittingPost,
         postNotification,
         submitPost
     }

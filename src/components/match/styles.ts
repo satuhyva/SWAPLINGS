@@ -76,6 +76,22 @@ export const styles = StyleSheet.create({
         borderRadius: 6,
         marginBottom: 10,
     },
+    removeWarningContainer: {
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        // height: 120,
+    },
+    removeAccountButtonView: { 
+        justifyContent: 'center',
+        marginBottom: 20,
+        // width: '60%'
+    },
+    removeWarningText: {
+        marginTop: 5,
+        color: theme.colors.primary.main,
+        marginBottom: -5,
+    },
     matchImageCentralIconsContainer: {
         flexDirection: 'column',
         justifyContent: 'center',

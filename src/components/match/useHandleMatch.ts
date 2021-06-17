@@ -2,12 +2,7 @@ import { useState } from 'react'
 import { useMutation } from '@apollo/client'
 import { NotificationPropsType } from 'src/types/notification/NotificationPropsType'
 import { ADD_MATCH, ChangeMatchInputVariablesType, AddMatchResponseType, REMOVE_MATCH, RemoveMatchResponseType } from './queries'
-// import { updateCacheAfterAddedItem } from './updateCacheAfterAddedItem'
-// import { setAddItemOutcomeNotification } from './addItemOutcomeNotifications'
-// import { MatchActionType } from './HandleBrowseMatch'
 import { ItemImageButtonActionType } from '../common-components/handle-matches/ItemImageButtonsRow'
-
-
 
 
 
@@ -25,19 +20,9 @@ export const useHandleMatch = (): UseHandleMatchType => {
 
     const [submitting, setSubmitting] = useState(false)
     const [notification, setNotification] = useState<NotificationPropsType | undefined>(undefined)
-    const [addMatch] = useMutation<AddMatchResponseType, { changeMatchInput: ChangeMatchInputVariablesType }>(ADD_MATCH, {
-        update(cache, { data }) {
-            // TODO: toteuta tämä!
-            console.log('updating cache',cache, data)
-        }
-    })
-    const [removeMatch] = useMutation<RemoveMatchResponseType, { changeMatchInput: ChangeMatchInputVariablesType }>(REMOVE_MATCH, {
-        update(cache, { data }) {
-            // TODO: toteuta tämä!
-            console.log('updating cache',cache, data)
-        }
-    })  
-    
+    const [addMatch] = useMutation<AddMatchResponseType, { changeMatchInput: ChangeMatchInputVariablesType }>(ADD_MATCH)
+    const [removeMatch] = useMutation<RemoveMatchResponseType, { changeMatchInput: ChangeMatchInputVariablesType }>(REMOVE_MATCH)  
+
 
     const submitAddMatch = async (action: ItemImageButtonActionType): Promise<boolean> => {
         setSubmitting(true)
@@ -47,8 +32,9 @@ export const useHandleMatch = (): UseHandleMatchType => {
         }
         try {
             const { data } = await addMatch({ variables: { changeMatchInput: addMatchInput }})
-            console.log(data)
-            return true
+            setSubmitting(false)
+            if (data?.addMatch.success) return true
+            return false
         } catch (error) {
             console.log('error\n', error)
             setNotification({
@@ -70,13 +56,13 @@ export const useHandleMatch = (): UseHandleMatchType => {
         }
         try {
             const { data } = await removeMatch({ variables: { changeMatchInput: removeMatchInput }})
-            console.log(data)
-            return true
+            if (data?.removeMatch.success) return true
+            return false
         } catch (error) {
             console.log('error\n', error)
             setNotification({
                 title: 'ERROR',
-                content: 'Error in adding match',
+                content: 'Error in removing match',
                 themeType: 'error',
                 clearNotification: () =>  setNotification(undefined)
             })

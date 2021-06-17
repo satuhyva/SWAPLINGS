@@ -1,19 +1,18 @@
 import React, { useState } from 'react'
 import { View, Text } from 'react-native'
-import { useLazyQuery, useApolloClient } from '@apollo/client'
+import { useLazyQuery, useApolloClient, useQuery } from '@apollo/client'
 import { styles } from './styles'
 import BrowseSearchTerms from './BrowseSearchTerms'
 import { SearchTermsType } from '../../types/browse/SearchTermsType'
 import { Button } from 'react-native-paper'
 import { theme } from '../../theme/theme'
-import { BROWSE_ITEMS_BY_PAGE, MY_ITEMS_FOR_CAROUSEL } from './queries'
+import { BROWSE_ITEMS_BY_PAGE, MY_ITEMS_FOR_CAROUSEL, MyItemsForCarouselType } from './queries'
 import Notification from '../common-components/notification/Notification'
 import { NotificationPropsType } from '../../types/notification/NotificationPropsType'
 import WaitSpinner from '../common-components/wait-spinner/WaitSpinner'
 import Carousel from '../carousel/Carousel'
 import { BrowseItemsByPageResponseType } from '../../types/browse/BrowseItemsByPageType'
 import { ItemForCardType } from '../../types/item/ItemForCardType'
-import { MyItemForCarouselType } from '../../types/item/MyItemType'
 
 
 
@@ -23,19 +22,32 @@ const NUMBER_OF_ITEMS_TO_FETCH_AT_A_GO = 2
 const Browse = () => {
 
     const [searchTerms, setSearchTerms] = useState<SearchTermsType | undefined>(undefined)
-    const [notification, setNotification] = useState<NotificationPropsType | undefined>(undefined)
+    const [browseNotification, setBrowseNotification] = useState<NotificationPropsType | undefined>(undefined)
+    const [myItemsNotification, setMyItemsNotification] = useState<NotificationPropsType | undefined>(undefined)
     const [showSetSearchCriteria, setShowSetSearchCriteria] = useState(true)
-    const [browseItemsByPage, { loading, error, data, fetchMore }] = useLazyQuery(BROWSE_ITEMS_BY_PAGE)
+    const [browseItemsByPage, { loading: browseLoading, error: browseError, data: browseData, fetchMore }] = useLazyQuery<BrowseItemsByPageResponseType>(BROWSE_ITEMS_BY_PAGE)
+    // const myItems = useQuery<{ data: MyItemsForCarouselType }>(MY_ITEMS_FOR_CAROUSEL)
+    const { loading: myItemsLoading, error: myItemsError, data: myItemsData } = useQuery<MyItemsForCarouselType>(MY_ITEMS_FOR_CAROUSEL)
+
     const client = useApolloClient()
 
 
-    if (error) {
-        console.log(error)
-        setNotification({
+    if (browseError) {
+        console.log(browseError)
+        setBrowseNotification({
             title: 'ERROR',
-            content: 'Something went wrong. Could not get items.',
+            content: 'Something went wrong. Could not get items for browsing.',
             themeType: 'error',
-            clearNotification: () => setNotification(undefined)
+            clearNotification: () => setBrowseNotification(undefined)
+        })
+    }
+    if (myItemsError) {
+        console.log(browseError)
+        setMyItemsNotification({
+            title: 'ERROR',
+            content: 'Something went wrong. Could not get your own items.',
+            themeType: 'error',
+            clearNotification: () => setBrowseNotification(undefined)
         })
     }
 
@@ -65,12 +77,12 @@ const Browse = () => {
     }
 
     const getMoreItemsToBrowse = () => {
-        if (fetchMore && data) {
+        if (fetchMore && browseData) {
             fetchMore({
                 variables: {
                     browseItemsByPageInput: {
                         first: NUMBER_OF_ITEMS_TO_FETCH_AT_A_GO,
-                        after: (data as BrowseItemsByPageResponseType).browseItemsByPage.pageInfo.endCursor,
+                        after: (browseData as BrowseItemsByPageResponseType).browseItemsByPage.pageInfo.endCursor,
                         browseItemsInput: searchTerms
                     }
                 }
@@ -78,24 +90,21 @@ const Browse = () => {
         }
     }
 
-    const browseData = data as BrowseItemsByPageResponseType
-    const browseItemsAsCarouselCards = browseData && browseData.browseItemsByPage && browseData.browseItemsByPage.edges ?
-        browseData.browseItemsByPage.edges.filter(edge => edge !== undefined).map(edge => edge.node as ItemForCardType)
+    const browseItems = browseData as BrowseItemsByPageResponseType
+    const browseItemsAsCarouselCards = browseItems && browseItems.browseItemsByPage && browseItems.browseItemsByPage.edges ?
+        browseItems.browseItemsByPage.edges.filter(edge => edge !== undefined).map(edge => edge.node as ItemForCardType)
         : 
         undefined
-
-
-    const myItemsForCarousel: { myItems: MyItemForCarouselType[] } | null = client.readQuery({
-        query: MY_ITEMS_FOR_CAROUSEL
-    })
-
 
 
     return (
         <View>
             <View style={styles.browseContainer}>
-                {notification !== undefined &&
-                    <Notification { ...notification }/>
+                {browseNotification !== undefined &&
+                    <Notification { ...browseNotification }/>
+                }
+                {myItemsNotification !== undefined &&
+                    <Notification { ...myItemsNotification }/>
                 }
                 <Text style={styles.pageTitle}>BROWSE ITEMS</Text>
                 {searchTerms === undefined || showSetSearchCriteria ?
@@ -119,9 +128,10 @@ const Browse = () => {
                 }
             </View>
 
-            {loading && 
+            {browseLoading && 
                 <WaitSpinner/>
             }
+
             {!showSetSearchCriteria && browseItemsAsCarouselCards ?
                 browseItemsAsCarouselCards.length === 0 ?
                     <View style={styles.searchCriteriaContainer}>
@@ -134,7 +144,7 @@ const Browse = () => {
                                 :
                                 <View style={styles.noItemsContainer}>
                                     <Text style={styles.noItemsText}>
-                                        NO items were returned
+                                        No items were returned
                                     </Text>
                                     <Text style={styles.noItemsText}>
                                         with the selected search criteria. 
@@ -145,22 +155,16 @@ const Browse = () => {
                     :
                     <Carousel 
                         itemCards={browseItemsAsCarouselCards} 
-                        myItems={myItemsForCarousel === null ? [] : myItemsForCarousel.myItems}
+                        myItems={myItemsData === undefined ? [] : myItemsData.myItems}
                     />
                         :
-                        null
+                        <>
+                            {myItemsLoading ? <WaitSpinner/> : null}
+                        </>
             }
-            {/* {!showSetSearchCriteria &&
-                <View style={styles.fetchMoreContainer}>
-                    <Text>TEMPORARY DATA DISPLAY</Text>
-                    {data && data.browseItemsByPage.edges.length > 0 &&
-                        (data as BrowseItemsByPageResponseType).browseItemsByPage.edges.map(
-                            edge => <Text key={edge.node.title?.toString()}>{edge.node.title}</Text>)}
-                </View>            
-            } */}
 
 
-            {!showSetSearchCriteria && data && (data as BrowseItemsByPageResponseType).browseItemsByPage.pageInfo.hasNextPage &&
+            {!showSetSearchCriteria && browseData && (browseData as BrowseItemsByPageResponseType).browseItemsByPage.pageInfo.hasNextPage &&
                 <View style={styles.fetchMoreContainer}>
                     <Button 
                         icon='page-next-outline' 

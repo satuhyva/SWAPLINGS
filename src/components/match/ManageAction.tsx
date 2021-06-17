@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, Image } from 'react-native'
 import { styles } from './styles'
 import { theme } from '../../theme/theme'
@@ -8,6 +8,10 @@ import { useHandleMatch } from './useHandleMatch'
 import {  useNavigation } from '@react-navigation/native'
 import { CompositeNavigationPropBrowseType, CompositeNavigationPropHomeType } from '../../types/routes/CompositeNavigationPropTypes'
 import { ItemImageButtonActionType } from '../common-components/handle-matches/ItemImageButtonsRow'
+import RemoveMatch from './RemoveMatch'
+import Notification from '../common-components/notification/Notification'
+
+
 
 
 type ManageMatchActionPropsType = {
@@ -17,20 +21,24 @@ type ManageMatchActionPropsType = {
 
 const ManageMatchAction: React.FC<ManageMatchActionPropsType> = ({ action }) => {
 
+    const [showRemoveWarning, setShowRemoveWarning] = useState(false)
     const { submitting, submitAddMatch, notification, submitRemoveMatch } = useHandleMatch()
     const navigation = useNavigation<CompositeNavigationPropBrowseType | CompositeNavigationPropHomeType>()
 
     const act = async () => {
         if (action.currentState === 'FROM' || action.currentState === 'AVAILABLE') {
             const successInMatching = await submitAddMatch(action)
-            console.log(successInMatching)
             if (action.currentState === 'FROM' && successInMatching) {
                 viewMatch()
+            } else {
+                cancelHandleMatch()
             }
         }
         if (action.currentState === 'TO' || action.currentState === 'BOTH') {
-            const successInRemovingMatching = await submitRemoveMatch(action)
-            console.log(successInRemovingMatching)
+            const successInRemovingMatch = await submitRemoveMatch(action)
+            if (successInRemovingMatch) {
+                cancelHandleMatch()
+            }
         }        
     }
 
@@ -62,6 +70,10 @@ const ManageMatchAction: React.FC<ManageMatchActionPropsType> = ({ action }) => 
 
     return (
         <View>
+            {notification !== undefined &&
+                <Notification  { ...notification }/>
+            }
+
             <View style={styles.imageRowContainer}>
                 <Image 
                     source={{uri: action.otherItem.imageSecureUrl}}
@@ -73,16 +85,37 @@ const ManageMatchAction: React.FC<ManageMatchActionPropsType> = ({ action }) => 
                 />                
             </View>
 
-            <View style={styles.matchButtonView}>
-                <Button 
-                    mode='contained' 
-                    onPress={act}
-                    disabled={false}
-                    color={action.currentState === 'TO' ? theme.colors.error : theme.colors.primary.main}
-                >
-                    {buttonLabels[action.currentState]}
-                </Button>
-            </View>
+            {action.currentState === 'BOTH' ?
+                <View>
+                    {showRemoveWarning ?
+                        <RemoveMatch removeMatch={act} isSubmitting={submitting}/>
+                        :
+                        <View style={styles.matchButtonView}>
+                            <Button 
+                                mode='contained' 
+                                onPress={() => setShowRemoveWarning(true)}
+                                disabled={false}
+                                color={theme.colors.primary.main}
+                            >
+                                {buttonLabels.BOTH}
+                            </Button>
+                        </View>
+                    }
+                </View>
+                :
+                <View style={styles.matchButtonView}>
+                    <Button 
+                        mode='contained' 
+                        onPress={act}
+                        disabled={false}
+                        color={action.currentState === 'TO' ? theme.colors.error : theme.colors.primary.main}
+                    >
+                        {buttonLabels[action.currentState]}
+                    </Button>
+                </View>                
+            }
+
+
 
             {action.currentState === 'BOTH' &&
                             <View style={styles.matchButtonView}>

@@ -25,6 +25,7 @@ export const BROWSE_ITEMS_BY_PAGE = gql`
 `
 
 
+
 export const MY_ITEMS_FOR_CAROUSEL = gql`
             query MyItemsInCache {
                 myItems {
@@ -41,6 +42,20 @@ export const MY_ITEMS_FOR_CAROUSEL = gql`
             }
         `
 
+export type MyItemsForCarouselType = {
+    myItems: {
+        id: string,
+        title: string,
+        priceGroup: string,
+        imageSecureUrl: string,
+        matchedTo: {
+            id: string,
+        }[],
+        matchedFrom: {
+            id: string,
+        }[],
+    }[]
+}
 
 export const MY_ITEMS_IN_CACHE = gql`
             query MyItemsInCache {
