@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native'
 export const styles = StyleSheet.create({
 
     title: {
-        marginTop: 60,
+        marginTop: 10,
         fontSize: 25,
         fontWeight: 'bold',
         textAlign: 'center'
@@ -16,7 +16,7 @@ export const styles = StyleSheet.create({
     loginButtonView: {
         marginTop: 5,
         justifyContent: 'center',
-        marginBottom: 30,
+        marginBottom: 10,
     },
     formContainer: {
         flexDirection: 'column',
@@ -24,7 +24,7 @@ export const styles = StyleSheet.create({
         alignItems: 'center'
     },
     waitSpinnerContainer: {
-        height: 100,
+        height: 70,
         width: 300,
     },
     infoText: {
@@ -33,5 +33,9 @@ export const styles = StyleSheet.create({
     },
     facebookButtonContainer: {
         marginTop: 10
+    },
+    image: {
+        width: 100,
+        height: 100
     }
 })

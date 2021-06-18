@@ -6,7 +6,7 @@ import { useQuery } from '@apollo/client'
 import WaitSpinner from '../common-components/wait-spinner/WaitSpinner'
 import Notification from '../common-components/notification/Notification'
 import MyItemButton from './MyItemButton'
-
+// import SwipeableButton from './SwipeableButton'
 
 const Home = () => {
 
@@ -37,7 +37,8 @@ const Home = () => {
     return (
         <View style={styles.homeScreen}>
             <View style={styles.myItemsContainer}>
-                <Text style={styles.subtitle}>MY ITEMS</Text>
+                <Text style={styles.pageTitle}>MY ITEMS</Text>
+                {data.myItems.length > 4 && <Text style={styles.infoText}>Scroll down to view all items.</Text>}
                 {data.myItems.length > 0 && <Text style={styles.infoText}>Tap an item button to view item details.</Text>}
                 {data.myItems.length > 0 ?
                     <View style={styles.scrollView}>

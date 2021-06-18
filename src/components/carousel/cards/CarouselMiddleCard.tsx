@@ -37,7 +37,7 @@ const CarouselMiddleCard: React.FC<CarouselCardPropsType> = ({
         return (
             <Animated.View 
                 style={{ transform: [{ translateX: cardOrigos.middle.x }]}}
-                >
+            >
                     <CardContent cardData={cardData} matchData={matchData}/>
             </Animated.View> 
         )

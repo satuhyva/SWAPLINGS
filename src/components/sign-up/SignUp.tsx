@@ -5,7 +5,7 @@ import { useHandleSignUp } from './useHandleSignUp'
 import Notification from '../common-components/notification/Notification'
 import MoveToPage from '../common-components/move-to-page/MoveToPage'
 import SignUpForm from './SignUpForm'
-
+import HeaderLogo from '../header/HeaderLogo'
 
 
 
@@ -23,7 +23,8 @@ const SignUp: React.FC<SignUpPropsType> = ({ changePageToShow }) => {
         <View >
             {notification !== undefined &&
                 <Notification  { ...notification }/>
-            }          
+            } 
+            <HeaderLogo/>         
             <Text style={styles.title}>SIGN UP</Text>
             <SignUpForm
                 submitSignUp={submitSignUp}

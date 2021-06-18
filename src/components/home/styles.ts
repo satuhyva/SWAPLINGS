@@ -16,7 +16,8 @@ export const styles = StyleSheet.create({
         marginTop: 60,
         fontSize: 25,
         fontWeight: 'bold',
-        textAlign: 'center'
+        textAlign: 'center',
+        marginBottom: 5,
     },
     subtitle: {
         marginTop: 20,
@@ -24,7 +25,7 @@ export const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     infoText: {
-        marginBottom: 5,
+        textAlign: 'center'
     },
     myItemsContainer: {
         marginLeft: 10,
@@ -36,12 +37,13 @@ export const styles = StyleSheet.create({
     myItemButtonContainer: {
         backgroundColor: theme.colors.primary.dark,
         borderRadius: 6,
-        marginTop: SPACING,
-        paddingTop: SPACING,
-        paddingLeft: SPACING,
-        paddingBottom: SPACING,
+        // marginTop: SPACING,
+        padding: SPACING,
+        // paddingLeft: SPACING,
+        // paddingBottom: SPACING,
         flexDirection: 'row',
-        alignContent: 'flex-start'
+        // alignContent: 'space-between',
+        justifyContent: 'space-between',
     },
     itemImageButton: {
         backgroundColor: theme.colors.primary.dark,
@@ -70,6 +72,11 @@ export const styles = StyleSheet.create({
         marginBottom: 8,
         color: theme.colors.primary.contrast,
     },
+    myItemTitleDelete: {
+        fontWeight: 'bold',
+        marginBottom: 2,
+        color: '#FFFFFF',
+    },
     matchText: {
         fontWeight: 'bold',
         color: theme.colors.primary.contrast,
@@ -78,8 +85,51 @@ export const styles = StyleSheet.create({
         color: theme.colors.primary.contrast,
     },
     scrollView: {
+        marginTop: 10,
         flex: 1,
         flexGrow: 1,
+    },
+    deleteButtonContainer: {
+        // height: IMAGE_HEIGHT,
+        width: 85,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        // backgroundColor: 'orange',
+    },
+    deleteIconsContainer: {
+        borderRadius: 6,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: theme.colors.primary.light,
+        padding: 10,
+    },
+    deleteButton: {
+        height: 40,
+        width: 40,
+        backgroundColor: theme.colors.error,  
+        borderRadius: 6
+    },
+
+    deleteView: {
+        backgroundColor: theme.colors.error,
+        position: 'absolute',
+        borderRadius: 6,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        // alignItems: 'center',
+        width: '100%',
+        height: '100%',
+        padding: SPACING,
+    },
+    deleteIconContainer: {
+        borderRadius: 30,
+        height: 30,
+        width: 30,
+        margin: 5,
     }
 
 })
+
+

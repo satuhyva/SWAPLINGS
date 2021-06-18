@@ -7,7 +7,7 @@ import Notification from '../common-components/notification/Notification'
 import LoginWithFacebook from './LoginWithFacebook'
 import MoveToPage from '../common-components/move-to-page/MoveToPage'
 import LoginForm from './LoginForm'
-
+import HeaderLogo from '../header/HeaderLogo'
 
 type LoginPropsType = {
     changePageToShow: (show: 'login' | 'signup') => void
@@ -24,8 +24,9 @@ const Login: React.FC<LoginPropsType> = ({ changePageToShow }) => {
             {notification !== undefined &&
                 <Notification  { ...notification }/>
             }
-            
+            <HeaderLogo/>
             <Text style={styles.title}>LOGIN</Text>
+            
             <LoginForm
                 submitLogin={submitLogin}
                 submitting={submitting}
