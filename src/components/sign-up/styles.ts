@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
     loginButtonView: {
         marginTop: 5,
         justifyContent: 'center',
-        marginBottom: 10,
+        marginBottom: 5,
     },
     formContainer: {
         flexDirection: 'column',
@@ -23,7 +23,7 @@ export const styles = StyleSheet.create({
         alignItems: 'center'
     },
     waitSpinnerContainer: {
-        height: 70,
+        height: 60,
         width: 300,
     },
 

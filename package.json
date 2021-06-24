@@ -5,6 +5,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
+    "test": "jest",
+    "e2e": "detox test --configuration ios.sim",
     "eject": "expo eject"
   },
   "dependencies": {
@@ -15,18 +17,23 @@
     "@testing-library/jest-native": "^4.0.1",
     "@testing-library/react-native": "^7.2.0",
     "@types/axios": "^0.14.0",
-    "@types/jest": "^26.0.23",
     "@types/react-test-renderer": "^17.0.1",
     "axios": "^0.21.1",
     "babel-jest": "^26.6.3",
     "blob-util": "^2.0.2",
+    "cross-fetch": "^3.1.4",
+    "detox-expo-helpers": "^0.6.0",
     "expo": "~41.0.1",
     "expo-camera": "~11.0.2",
+    "expo-detox-hook": "^1.0.10",
     "expo-facebook": "~11.0.5",
     "expo-status-bar": "~1.0.4",
     "formik": "^2.2.6",
     "graphql": "^15.5.0",
     "jest": "^26.6.3",
+    "jest-cli": "^27.0.5",
+    "jest-expo": "^41.0.0",
+    "mocha": "^9.0.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-41.0.0.tar.gz",
@@ -44,13 +51,26 @@
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
+    "@types/jest": "^26.0.23",
+    "@types/mocha": "^8.2.2",
     "@types/react": "~16.9.35",
     "@types/react-dom": "^17.0.5",
     "@types/react-native": "~0.63.2",
     "@types/react-native-dotenv": "^0.2.0",
     "@types/react-native-vector-icons": "^6.4.6",
     "@types/yup": "^0.29.11",
+    "detox": "^18.18.1",
+    "jest-circus": "^27.0.5",
     "typescript": "~4.0.0"
   },
-  "private": true
+  "private": true,
+  "detox": {
+    "configurations": {
+      "ios.sim": {
+        "binaryPath": "bin/Exponent.app",
+        "type": "ios.simulator",
+        "name": "iPhone 11"
+      }
+    }
+  }
 }

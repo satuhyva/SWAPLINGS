@@ -6,7 +6,8 @@ import { useQuery } from '@apollo/client'
 import WaitSpinner from '../common-components/wait-spinner/WaitSpinner'
 import Notification from '../common-components/notification/Notification'
 import MyItemButton from './MyItemButton'
-// import SwipeableButton from './SwipeableButton'
+
+
 
 const Home = () => {
 
@@ -19,7 +20,7 @@ const Home = () => {
     if (error || !data) {
         setShowErrorNotification(true)
         return (
-            <View>
+            <View testID='home-page'>
                 {showErrorNotification &&
                     <Notification
                         title='ERROR'
@@ -35,9 +36,9 @@ const Home = () => {
 
 
     return (
-        <View style={styles.homeScreen}>
+        <View style={styles.homeScreen} testID='home-page'>
             <View style={styles.myItemsContainer}>
-                <Text style={styles.pageTitle}>MY ITEMS</Text>
+                <Text style={styles.pageTitle} testID='title-my-items'>MY ITEMS</Text>
                 {data.myItems.length > 4 && <Text style={styles.infoText}>Scroll down to view all items.</Text>}
                 {data.myItems.length > 0 && <Text style={styles.infoText}>Tap an item button to view item details.</Text>}
                 {data.myItems.length > 0 ?
@@ -47,7 +48,7 @@ const Home = () => {
                         </ScrollView>
                     </View>
                     :
-                    <Text>There are no items yet.</Text>
+                    <Text style={styles.infoText}>There are no items yet.</Text>
                 }       
             </View>
         </View>

@@ -20,16 +20,16 @@ const SignUp: React.FC<SignUpPropsType> = ({ changePageToShow }) => {
     const { submitting, submitSignUp, notification } = useHandleSignUp()
 
     return (
-        <View >
+        <View>
             {notification !== undefined &&
                 <Notification  { ...notification }/>
             } 
             <HeaderLogo/>         
-            <Text style={styles.title}>SIGN UP</Text>
+            <Text style={styles.title} testID='title-sign-up'>SIGN UP</Text>
             <SignUpForm
                 submitSignUp={submitSignUp}
                 submitting={submitting}
-                notification={notification}
+                submitAllowed={!submitting && notification === undefined}
             />
             <MoveToPage
                 infoText='Already have an account?'

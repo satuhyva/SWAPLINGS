@@ -5,12 +5,19 @@ import { styles } from './styles'
 
 
 const HeaderLogo = () => {
+
+    const logoImageSource = process.env.NODE_ENV === 'test' ? null : require('../../assets/LOGO.png')
+    
     return (
         <View style={styles.logoContainer}>
-            <View 
-                //source={require('../../assets/logo.png')}
-                style={styles.image} 
-            />  
+            {logoImageSource !== null &&
+                <Image 
+                    resizeMode='contain'
+                    source={logoImageSource}
+                    style={styles.image} 
+                />                
+            }
+  
         </View>
     )
 }

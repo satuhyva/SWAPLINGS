@@ -28,8 +28,7 @@
     "skipLibCheck": true, /* Skip type checking of declaration files. */
     "forceConsistentCasingInFileNames": true, /* Disallow inconsistently-cased references to the same file. */
     "typeRoots": ["./src/types/declarations"],
-    "exclude": [
-      "node_modules",
-    ]
-  }
+    "types": ["...", "@types/jest"],
+  },
+  "exclude": ["**/tests/*.test.ts", "node_modules"]
 }

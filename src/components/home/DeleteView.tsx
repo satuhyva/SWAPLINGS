@@ -2,11 +2,12 @@ import React from 'react'
 import { View, Image, Text, ImageSourcePropType, TouchableOpacity } from 'react-native'
 import { styles } from './styles'
 import { MyItemType } from '../../types/item/MyItemType'
-import { IconButton } from 'react-native-paper'
+// import { IconButton } from 'react-native-paper'
 import MIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { theme } from '../../theme/theme'
-import { CheckBox } from 'react-native-elements'
-
+// import { CheckBox } from 'react-native-elements'
+import CheckBox from 'react-native-elements/dist/checkbox/CheckBox'
+import IconButton from 'react-native-paper/src/components/IconButton'
 
 
 
@@ -31,7 +32,7 @@ const DeleteView: React.FC<DeleteViewPropsType> = ({ displayTitle, myItem, cance
                 <View style={styles.deleteView}>
                     {myItem.imageSecureUrl ?
                             <Image
-                                source={myItem.imageSecureUrl  as ImageSourcePropType}
+                                source={{ uri: myItem.imageSecureUrl }}
                                 style={styles.imageView}
                             />
                             :

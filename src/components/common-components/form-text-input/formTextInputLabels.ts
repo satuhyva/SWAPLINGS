@@ -1,13 +1,15 @@
 import { ADD_VALIDATION_CONSTANTS } from '../../add/validations'
 
 
-
+    export type InputType = 'username' | 'password' | 'passwordConfirm' | 'email' 
+    | 'itemTitle' | 'itemDescription' | 'itemBrand' | 'searchTitle' | 'searchDescription' | 'searchBrand'
+    | 'matchPost'
 
     export const placeHolders = {
-        username: '', //'Username',
-        password: '', //'Password',
-        passwordConfirm: '', //'Confirm password',
-        email: '', //'Email',
+        username: '',
+        password: '', 
+        passwordConfirm: '', 
+        email: '', 
         itemTitle: '',
         itemDescription: '',
         itemBrand: '',

@@ -52,12 +52,12 @@ const Match = () => {
 
             <MoveToPage
                 infoText='Either select one of your own items:'
-                underlinedText='my items >>>'
+                underlinedText='MY ITEMS'
                 moveAction={() => navigation.navigate('Home') }
             />
             <MoveToPage
                 infoText='Or browse items by other people:'
-                underlinedText='browse items >>>'
+                underlinedText='BROWSE ITEMS'
                 moveAction={() => navigation.navigate('Browse') }
             />
         </View>

@@ -9,7 +9,6 @@ import Notification from '../common-components/notification/Notification'
 import { CheckBox } from 'react-native-elements'
 
 
-
 type RemoveAccountPropsType = {
     showConfirmRemoveAccount: boolean,
     setShowConfirmRemoveAccount: (newValue: boolean) => void,
@@ -20,6 +19,11 @@ const RemoveAccount: React.FC<RemoveAccountPropsType> = ({ showConfirmRemoveAcco
 
     const { isSubmitting, submitRemoveAccount, notification } = useRemoveAccount()
     const [isConfirmed, setIsConfirmed] = useState(false)
+
+    const cancel = () => {
+        setIsConfirmed(false)
+        setShowConfirmRemoveAccount(false)
+    }
 
 
     return (
@@ -53,6 +57,7 @@ const RemoveAccount: React.FC<RemoveAccountPropsType> = ({ showConfirmRemoveAcco
                         checkedColor={theme.colors.primary.main}
                         textStyle={{ fontWeight: 'normal' }}
                         containerStyle={{ backgroundColor: 'transparent', borderWidth: 0 }}
+                        testID='remove-account-checkbox'
                     />
 
                     <View style={styles.removeAccountButtonView}>
@@ -62,6 +67,7 @@ const RemoveAccount: React.FC<RemoveAccountPropsType> = ({ showConfirmRemoveAcco
                             onPress={submitRemoveAccount}
                             color={theme.colors.error}
                             disabled={isSubmitting || !isConfirmed}
+                            testID='remove-account-permanently'
                         >
                             REMOVE MY ACCOUNT
                         </Button>
@@ -73,9 +79,10 @@ const RemoveAccount: React.FC<RemoveAccountPropsType> = ({ showConfirmRemoveAcco
                         <Button 
                             icon='keyboard-return' 
                             mode='contained' 
-                            onPress={() => setShowConfirmRemoveAccount(false)}
+                            onPress={cancel}
                             color={theme.colors.primary.main}
                             disabled={isSubmitting}
+                            testID='cancel-remove-account'
                         >
                             CANCEL REMOVE MY ACCOUNT
                         </Button>
@@ -94,6 +101,7 @@ const RemoveAccount: React.FC<RemoveAccountPropsType> = ({ showConfirmRemoveAcco
                             mode='contained' 
                             onPress={() => setShowConfirmRemoveAccount(true)}
                             color={theme.colors.primary.main}
+                            testID='start-removing-account'
                         >
                             REMOVE MY ACCOUNT
                         </Button>

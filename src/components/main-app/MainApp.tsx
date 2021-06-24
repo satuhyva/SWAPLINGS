@@ -12,8 +12,6 @@ import ScreensWithVisibleTabBar from './ScreensWithVisibleTabBar'
 import { RootStackType } from '../../types/routes/RootStackType'
 import { itemUnderConstructionImageVar, matchToHandleVar } from '../../apollo/cache'
 import { BrowseItemsByPageType } from '../../types/browse/BrowseItemsByPageType'
-// import { View } from 'react-native'
-// import TESTER from '../../../TESTER'
 
 
 
@@ -40,7 +38,6 @@ const MainApp = () => {
     const { state } = useContext(AppContext)
     const loggedInUser = state.loggedInUser
 
-
     if (!loggedInUser) {
         return (
             <SignUpLogin/>
@@ -52,11 +49,10 @@ const MainApp = () => {
     // with possibility to authorize the queries.
 
 
-    console.log(loggedInUser)
     const httpLink = createHttpLink({
         uri: LOCALHOST_GRAPHQL,
     })
-    
+
     const authorizationLink = setContext((_, { headers}) => {
         const token = loggedInUser.jwtToken
             return {
@@ -101,7 +97,6 @@ const MainApp = () => {
             },
         })
     })
-
 
     const Stack = createStackNavigator<RootStackType>()
 

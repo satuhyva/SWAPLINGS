@@ -24,7 +24,8 @@ export const styles = StyleSheet.create({
     pageContentContainer: {
         flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        width: '100%',
     },
     waitSpinnerContainer: {
         height: 100,

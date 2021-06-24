@@ -5,8 +5,10 @@ import { loginValidationSchema } from './loginValidationSchema'
 import FormTextInput from '../common-components/form-text-input/FormTextInput'
 import { styles } from './styles'
 import { theme } from '../../theme/theme'
-import { IconButton } from 'react-native-paper'
-import { Button } from 'react-native-paper'
+// import { IconButton } from 'react-native-paper'
+// import { Button } from 'react-native-paper'
+import IconButton from 'react-native-paper/src/components/IconButton'
+import Button from 'react-native-paper/src/components/Button'
 import { NotificationPropsType } from '../../types/notification/NotificationPropsType'
 // import { LoginType } from '../../types/signup-login/LoginType'
 import { LoginInputVariablesType } from './queries'
@@ -78,6 +80,7 @@ const LoginForm: React.FC<LoginFormPropsType> = ({ submitting, submitLogin, noti
                                     }}
                                     disabled={submitting || notification !== undefined}
                                     color={theme.colors.primary.main}
+                                    testID='submit-login'
                                 >
                                     LOGIN
                                 </Button>

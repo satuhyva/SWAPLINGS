@@ -20,7 +20,7 @@ const Login: React.FC<LoginPropsType> = ({ changePageToShow }) => {
 
 
     return (
-        <View style={styles.formContainer}>
+        <View style={styles.formContainer} testID='title-login'>
             {notification !== undefined &&
                 <Notification  { ...notification }/>
             }

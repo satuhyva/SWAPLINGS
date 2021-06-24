@@ -8,8 +8,8 @@ export const styles = StyleSheet.create({
         alignItems: 'center'
     },
     infoText: {
-        marginTop: 20,
-        marginBottom: 5
+        marginTop: 10,
+        // marginBottom: 2
     },
     underlinedText: {
         fontSize: 18,

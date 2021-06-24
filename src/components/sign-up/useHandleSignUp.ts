@@ -1,6 +1,5 @@
 import { useContext, useState } from 'react'
 import { SignUpFormikValuesType } from './SignUpForm'
-
 import { NotificationPropsType } from 'src/types/notification/NotificationPropsType'
 import AppContext from '../../app-state/AppContext'
 import { ActionTypesEnum } from '../../types/app-state/ActionTypesEnum'
@@ -32,6 +31,7 @@ export const useHandleSignUp = (): UseHandleSignUpType => {
 
 
     const submitSignUp = async (values: SignUpFormikValuesType): Promise<void> => {
+
         setSubmitting(true)
         let personValues: SignUpPersonVariablesType = { username: values.username, password: values.password }
         if (values.email) {
@@ -48,6 +48,7 @@ export const useHandleSignUp = (): UseHandleSignUpType => {
             if (parsedSignUpData.errorMessage) throw new Error(parsedSignUpData.errorMessage)
             dispatch({ type: ActionTypesEnum.SET_LOGGED_IN_USER, data: parsedSignUpData.loggedInUserData })
         } catch (error) {
+            console.log(error)
             let result: 'error' | 'duplicateUsername' | 'duplicateEmail' = 'error'
             if (error.toString().includes('Duplicate email')) result = 'duplicateEmail'
             if (error.toString().includes('Duplicate username')) result = 'duplicateUsername'

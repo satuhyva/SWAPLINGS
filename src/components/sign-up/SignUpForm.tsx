@@ -5,10 +5,11 @@ import { signUpValidationSchema } from './signUpValidationSchema'
 import FormTextInput from '../common-components/form-text-input/FormTextInput'
 import { styles } from './styles'
 import { theme } from '../../theme/theme'
-import { IconButton } from 'react-native-paper'
-import { Button } from 'react-native-paper'
+// import { IconButton } from 'react-native-paper'
+// import { Button } from 'react-native-paper'
+import IconButton from 'react-native-paper/src/components/IconButton'
+import Button from 'react-native-paper/src/components/Button'
 import WaitSpinner from '../common-components/wait-spinner/WaitSpinner'
-import { NotificationPropsType } from '../../types/notification/NotificationPropsType'
 
 
 export type SignUpFormikValuesType = {
@@ -21,12 +22,12 @@ export type SignUpFormikValuesType = {
 type SignUpFormPropsType = {
     submitSignUp: (values: SignUpFormikValuesType) => Promise<void>,
     submitting: boolean,
-    notification: NotificationPropsType | undefined
+    submitAllowed: boolean
 }
 
 
 
-const SignUpForm: React.FC<SignUpFormPropsType> = ({ submitSignUp, submitting, notification }) => {
+const SignUpForm: React.FC<SignUpFormPropsType> = ({ submitSignUp, submitting, submitAllowed }) => {
 
     const initialValues = { username: '', password: '', passwordConfirm: '', email: '' }
     const [showErrors, setShowErrors] = useState(false)
@@ -89,14 +90,15 @@ const SignUpForm: React.FC<SignUpFormPropsType> = ({ submitSignUp, submitting, n
 
                                 <View style={styles.loginButtonView}>
                                     <Button 
-                                        icon='send' 
+                                        icon='send'
                                         mode='contained' 
                                         onPress={() => {
                                             if (!showErrors) setShowErrors(true)
                                             handleSubmit()
                                         }}
-                                        disabled={submitting || notification !== undefined}
+                                        disabled={!submitAllowed}
                                         color={theme.colors.primary.main}
+                                        testID='submit-sign-up'
                                     >
                                         SIGN UP
                                     </Button>

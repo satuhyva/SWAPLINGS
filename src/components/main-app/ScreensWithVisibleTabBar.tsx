@@ -25,12 +25,14 @@ const ScreensWithVisibleTabBar = () => {
     return (
         <Tab.Navigator
             screenOptions={({ route }) => ({
-                tabBarIcon: ({ color, size }) => getTabBarIcon(route, size, color)
+                tabBarIcon: ({ color, size }) => getTabBarIcon(route, size, color),
+                tabBarTestID: `TabBar-${route.name}`,
             })}
             tabBarOptions={{
                 activeTintColor: theme.colors.primary.dark,
                 inactiveTintColor: theme.colors.primary.light,
                 style: { height: TABBAR_HEIGHT },
+                
             }
         }
         >

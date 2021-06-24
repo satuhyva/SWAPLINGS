@@ -3,15 +3,13 @@ import { View, Text } from 'react-native'
 import { styles } from './styles'
 import { TextInput } from 'react-native-paper'
 import { theme } from '../../../theme/theme'
-import { labels, labels_RED_TITLE, placeHolders } from './formTextInputLabels'
+import { InputType, labels, labels_RED_TITLE, placeHolders } from './formTextInputLabels'
 
 
 
 
 type FormTextInputPropsType = {
-    target: 'username' | 'password' | 'passwordConfirm' | 'email' 
-        | 'itemTitle' | 'itemDescription' | 'itemBrand' | 'searchTitle' | 'searchDescription' | 'searchBrand'
-        | 'matchPost',
+    target: InputType,
     value: string,
     handleValueChange: (newValue: string) => void,
     isEditable: boolean,
@@ -25,7 +23,10 @@ const FormTextInput: React.FC<FormTextInputPropsType> = ({ target, value, handle
 
     return (
         <View style={styles.inputContainer}>
-            <Text style={error === 'RED_TITLE' ? { color: theme.colors.error } : null}>
+            <Text 
+                style={error === 'RED_TITLE' ? { color: theme.colors.error } : null}
+                testID={`FormTextInputLabel-${target}`}
+            >
                 {error === 'RED_TITLE' ?
                     labels_RED_TITLE[target]
                     :
@@ -43,13 +44,14 @@ const FormTextInput: React.FC<FormTextInputPropsType> = ({ target, value, handle
                 numberOfLines={target === 'matchPost' ? 3 : 1}
                 autoCorrect={false}
                 secureTextEntry={!isVisible}
+                textContentType='oneTimeCode'
                 style={target === 'matchPost' ? styles.inputMultiline : styles.input}
                 mode='outlined'
                 theme={{ colors: { text: theme.colors.primary.main,   primary: theme.colors.primary.main } }}
-                testID={`FormTextInput-${target}`}
+                testID={`FormTextInputInput-${target}`}
             />
             {error && error !== 'RED_TITLE' &&
-                <Text style={styles.error}>{error}</Text>
+                <Text style={styles.error} testID={`error-${target}`}>{error}</Text>
             }
         </View>
                             
