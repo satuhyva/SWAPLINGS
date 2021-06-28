@@ -9,6 +9,8 @@ import MoveToPage from '../common-components/move-to-page/MoveToPage'
 import LoginForm from './LoginForm'
 import HeaderLogo from '../header/HeaderLogo'
 
+
+
 type LoginPropsType = {
     changePageToShow: (show: 'login' | 'signup') => void
 }
@@ -26,7 +28,6 @@ const Login: React.FC<LoginPropsType> = ({ changePageToShow }) => {
             }
             <HeaderLogo/>
             <Text style={styles.title}>LOGIN</Text>
-            
             <LoginForm
                 submitLogin={submitLogin}
                 submitting={submitting}
