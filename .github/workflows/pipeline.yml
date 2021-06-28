@@ -37,5 +37,5 @@ jobs:
           expo-cache: true
       - run: yarn
       - run: expo publish --release-channel default
-          env:
-            LOCALHOST_GRAPHQL: ${{secrets.LOCALHOST_GRAPHQL}}
+        env:
+          LOCALHOST_GRAPHQL: ${{secrets.LOCALHOST_GRAPHQL}}
