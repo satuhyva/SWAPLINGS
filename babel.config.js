@@ -11,7 +11,7 @@ module.exports = function(api) {
           blacklist: null,
           whitelist: ['FACEBOOK_LOGIN_APP_ID', 'LOCALHOST_REST', 'LOCALHOST_GRAPHQL'],
           safe: true,
-          allowUndefined: true,
+          allowUndefined: false,
         },
       ],
     ]
