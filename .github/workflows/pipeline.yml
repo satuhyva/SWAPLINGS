@@ -39,3 +39,5 @@ jobs:
       - run: expo publish --release-channel default
         env:
           LOCALHOST_GRAPHQL: ${{secrets.LOCALHOST_GRAPHQL}}
+          FACEBOOK_LOGIN_APP_ID: ${{secrets.FACEBOOK_LOGIN_APP_ID}}
+          LOCALHOST_REST: ${{secrets.LOCALHOST_REST}}
