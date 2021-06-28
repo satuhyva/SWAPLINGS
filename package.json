@@ -6,6 +6,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "test": "jest",
+    "eslint": "eslint --ext .ts .",
     "e2e": "detox test --configuration ios.sim",
     "eject": "expo eject"
   },
