@@ -42,7 +42,7 @@ const CardContent: React.FC<CardContentPropsType> = ({ cardData, matchData }) =>
                 <Text style={styles.itemTitle}>{cardData.title.toLocaleUpperCase()}</Text>
                
                     <Image 
-                        source={{uri: cardData.imageSecureUrl}}
+                        source={{ uri: cardData.imageSecureUrl }}
                         style={styles.image} 
                     />    
                     {matchData.couldMatch &&

@@ -43,7 +43,7 @@ const Home = () => {
                 {data.myItems.length > 0 && <Text style={styles.infoText}>Tap an item button to view item details.</Text>}
                 {data.myItems.length > 0 ?
                     <View style={styles.scrollView}>
-                        <ScrollView>
+                        <ScrollView testID='my-items-scroll-view'>
                             {data.myItems.map(myItem => <MyItemButton key={myItem.id} myItem={myItem}/>)}
                         </ScrollView>
                     </View>

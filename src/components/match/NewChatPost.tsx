@@ -1,7 +1,6 @@
 import React, {  useState } from 'react'
 import { View } from 'react-native'
 import { styles } from './styles'
-import { theme } from '../../theme/theme'
 import { IconButton } from 'react-native-paper'
 import FormTextInput from '../common-components/form-text-input/FormTextInput'
 import { useHandleChat } from './useHandleChat'

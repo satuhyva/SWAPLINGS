@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, Image, TouchableOpacity } from 'react-native'
 import { styles } from './styles'
-import { ImageSourcePropType } from 'react-native'
+
 
 
 
@@ -63,7 +63,7 @@ const ItemImageButtonsRow: React.FC<ItemImageButtonsRowPropsType> = ({ mode, typ
                         return (
                             <TouchableOpacity onPress={() => setAction(action)} key={item.id + '-' + type}>
                                 <Image
-                                        source={item.imageSecureUrl as ImageSourcePropType}
+                                        source={{ uri: item.imageSecureUrl }}
                                         style={styles.myItemImage}
                                     /> 
                                 </TouchableOpacity>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Image, Text, ImageSourcePropType, TouchableOpacity } from 'react-native'
+import { View, Image, Text, TouchableOpacity } from 'react-native'
 import { styles } from './styles'
 import { MyItemType } from '../../types/item/MyItemType'
 // import { IconButton } from 'react-native-paper'

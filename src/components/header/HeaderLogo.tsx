@@ -13,7 +13,7 @@ const HeaderLogo = () => {
             {logoImageSource !== null &&
                 <Image 
                     resizeMode='contain'
-                    source={logoImageSource}
+                    source={{ uri: logoImageSource }}
                     style={styles.image} 
                 />                
             }

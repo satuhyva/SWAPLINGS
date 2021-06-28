@@ -1,0 +1,25 @@
+name: Deployment pipeline
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deployment:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: start MongoDB
+        uses: supercharge/mongodb-github-action@1.6.0
+        with: 
+          mongodb-version: '4.0'
+      - name: perform npm installations
+        run: npm install
+      - name: lint the code
+        run: npm run eslint
+      - name: tests
+        run: npm run test

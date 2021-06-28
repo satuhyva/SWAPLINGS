@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
-import { View, Image, Text, ImageSourcePropType, TouchableOpacity, Animated, Dimensions } from 'react-native'
+import { View, Image, Text, TouchableOpacity, Animated, Dimensions } from 'react-native'
 import { styles } from './styles'
 import { MyItemType } from '../../types/item/MyItemType'
 // import { IconButton } from 'react-native-paper'
 import IconButton from 'react-native-paper/src/components/IconButton'
-import { matchToHandleVar, selectedMatchVar } from '../../apollo/cache'
+// import { matchToHandleVar, selectedMatchVar } from '../../apollo/cache'
+import reactiveVars from '../../apollo/cache'
 import { useNavigation } from '@react-navigation/native'
 import { CompositeNavigationPropMatchType } from '../../types/routes/CompositeNavigationPropTypes'
 import { useRef } from 'react'
@@ -14,7 +15,7 @@ import { theme } from '../../theme/theme'
 import { getPanResponder } from './getPanResponder'
 import DeleteView from './DeleteView'
 
-
+// import useNavigation from '@react-navigation/core/src/useNavigation'
 
 
 const SCREEN_WIDTH = Dimensions.get('window').width
@@ -32,9 +33,8 @@ const MyItemButton: React.FC<MyItemButtonPropsType> = ({ myItem }) => {
 
     const [showingDelete, setShowingDelete] = useState(false)
     const [isConfirmed, setIsConfirmed] = useState(false)
-    const navigation = useNavigation<CompositeNavigationPropMatchType>()
-//TODO: korjaa testi, kaatuu tähän navigointiin
-    
+    const navigation = useNavigation<CompositeNavigationPropMatchType>()  
+    const { selectedMatchVar, matchToHandleVar } = reactiveVars
 
     const position = useRef(new Animated.ValueXY({ x: 0, y: 0 })).current
     
@@ -54,8 +54,7 @@ const MyItemButton: React.FC<MyItemButtonPropsType> = ({ myItem }) => {
 
 
     const { matches, matchedFrom, matchedTo } = getMatchedData(myItem)
-
-    //TODO: Image:ssa pitää olla {{ uri: ... }} kaikkialla!!!
+    
 
     const handleMyItemButtonPressed = () => {
         selectedMatchVar(undefined)
@@ -80,7 +79,12 @@ const MyItemButton: React.FC<MyItemButtonPropsType> = ({ myItem }) => {
     const displayTitle = myItem.title.length > 25 ? myItem.title.substring(0, 25) + '...' : myItem.title
 
     return (
-        <TouchableOpacity onPress={handleMyItemButtonPressed} style={{ marginBottom: 5 }} disabled={showingDelete}>
+        <TouchableOpacity 
+            onPress={handleMyItemButtonPressed} 
+            style={{ marginBottom: 5 }} 
+            disabled={showingDelete}
+            testID={`my-item-${myItem.id}`}
+        >
             <View>     
 
                 <DeleteView

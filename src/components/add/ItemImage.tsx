@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Image, ImageSourcePropType, TouchableOpacity } from 'react-native'
+import { View, Image, TouchableOpacity } from 'react-native'
 import { IconButton } from 'react-native-paper'
 import {  useNavigation } from '@react-navigation/native'
 import { CompositeNavigationPropAddType } from '../../types/routes/CompositeNavigationPropTypes'
@@ -31,7 +31,7 @@ const ItemImage: React.FC<ItemImagePropsType> = ({ disabled }) => {
                 <TouchableOpacity onPress={navigateToImaging}>
                     <Image
                         style={styles.imageView}
-                        source={itemImage.clientUrl as ImageSourcePropType}
+                        source={{ uri: itemImage.clientUrl }}
                     />
                 </TouchableOpacity>
                 :
