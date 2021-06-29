@@ -1,0 +1,40 @@
+{
+  "files": {
+    "app.js": "/swaplings/static/js/app.d764ad9a.chunk.js",
+    "app.js.map": "/swaplings/static/js/app.d764ad9a.chunk.js.map",
+    "runtime~app.js": "/swaplings/static/js/runtime~app.f5a1de8c.js",
+    "runtime~app.js.map": "/swaplings/static/js/runtime~app.f5a1de8c.js.map",
+    "static/js/2.f657f390.chunk.js": "/swaplings/static/js/2.f657f390.chunk.js",
+    "static/js/2.f657f390.chunk.js.map": "/swaplings/static/js/2.f657f390.chunk.js.map",
+    "fonts/AntDesign.ttf": "/swaplings/./fonts/AntDesign.ttf",
+    "fonts/Entypo.ttf": "/swaplings/./fonts/Entypo.ttf",
+    "fonts/Feather.ttf": "/swaplings/./fonts/Feather.ttf",
+    "fonts/FontAwesome.ttf": "/swaplings/./fonts/FontAwesome.ttf",
+    "fonts/FontAwesome5_Brands.ttf": "/swaplings/./fonts/FontAwesome5_Brands.ttf",
+    "fonts/FontAwesome5_Solid.ttf": "/swaplings/./fonts/FontAwesome5_Solid.ttf",
+    "fonts/Fontisto.ttf": "/swaplings/./fonts/Fontisto.ttf",
+    "fonts/Foundation.ttf": "/swaplings/./fonts/Foundation.ttf",
+    "fonts/Ionicons.ttf": "/swaplings/./fonts/Ionicons.ttf",
+    "fonts/MaterialCommunityIcons.ttf": "/swaplings/./fonts/MaterialCommunityIcons.ttf",
+    "fonts/MaterialIcons.ttf": "/swaplings/./fonts/MaterialIcons.ttf",
+    "fonts/SimpleLineIcons.ttf": "/swaplings/./fonts/SimpleLineIcons.ttf",
+    "favicon-16.png": "/swaplings/favicon-16.png",
+    "favicon-32.png": "/swaplings/favicon-32.png",
+    "favicon.ico": "/swaplings/favicon.ico",
+    "index.html": "/swaplings/index.html",
+    "manifest.json": "/swaplings/manifest.json",
+    "serve.json": "/swaplings/serve.json",
+    "static/js/2.f657f390.chunk.js.LICENSE.txt": "/swaplings/static/js/2.f657f390.chunk.js.LICENSE.txt",
+    "static/media/LOGO.png": "/swaplings/static/media/LOGO.89bd4d4b.png",
+    "static/media/bell.png": "/swaplings/static/media/bell.cf04af27.png",
+    "static/media/heart.png": "/swaplings/static/media/heart.23b5c2c0.png",
+    "static/media/index.cjs": "/swaplings/static/media/index.36ceb676.cjs",
+    "static/media/rocket.png": "/swaplings/static/media/rocket.d2f3bf41.png",
+    "static/media/star.png": "/swaplings/static/media/star.69c71386.png"
+  },
+  "entrypoints": [
+    "static/js/runtime~app.f5a1de8c.js",
+    "static/js/2.f657f390.chunk.js",
+    "static/js/app.d764ad9a.chunk.js"
+  ]
+}
